@@ -1,3 +1,3 @@
-# Engineering Lab Template
+# PG Forge Database Lab
 
-#### Template repository for engineering laboratories. Provides a structured workflow for managing tasks, experiments, research, implementations, roadmaps, and qualification progress across technical domains.
+#### A PostgreSQL internals project focused on schema design, indexes, query planning, EXPLAIN ANALYZE, transactions, isolation levels, locks, deadlocks, migrations, partitioning, performance tuning, and database behavior beyond ORM-level usage.
