@@ -1,2483 +1,2488 @@
 # PG Forge Database Lab Roadmap
 
-## 1. Основы PostgreSQL и relational database systems
+## 1. PostgreSQL and relational database systems fundamentals
 
-### 001. Исследовать relational model
+### 001. Research the relational model
 
-Разобрать relations, tuples, attributes, keys, predicates и ограничения relational model.
+Analyze relations, tuples, attributes, keys, predicates, and constraints of the relational model.
 
-### 002. Исследовать SQL execution lifecycle
+### 002. Research the SQL execution lifecycle
 
-Проследить путь запроса от parser и analyzer до planner, executor и возврата результата.
+Trace the query path from the parser and analyzer to the planner, executor, and result return.
 
-### 003. Исследовать архитектуру PostgreSQL
+### 003. Research PostgreSQL architecture
 
-Разобрать postmaster, backend processes, shared memory, background workers и auxiliary processes.
+Analyze the postmaster, backend processes, shared memory, background workers, and auxiliary processes.
 
-### 004. Исследовать process-per-connection model
+### 004. Research the process-per-connection model
 
-Определить влияние отдельного backend process на memory usage, connection limits и scalability.
+Determine the impact of a separate backend process on memory usage, connection limits, and scalability.
 
-### 005. Исследовать PostgreSQL memory architecture
+### 005. Research PostgreSQL memory architecture
 
-Разобрать shared_buffers, work_mem, maintenance_work_mem, local memory и operating-system cache.
+Analyze shared_buffers, work_mem, maintenance_work_mem, local memory, and the operating-system cache.
 
-### 006. Исследовать PostgreSQL storage hierarchy
+### 006. Research the PostgreSQL storage hierarchy
 
-Разобрать cluster, database, tablespace, relation, fork, segment, page и tuple.
+Analyze cluster, database, tablespace, relation, fork, segment, page, and tuple.
 
-### 007. Исследовать system catalogs
+### 007. Research system catalogs
 
-Определить назначение `pg_class`, `pg_attribute`, `pg_type`, `pg_index`, `pg_constraint` и других catalogs.
+Determine the purpose of `pg_class`, `pg_attribute`, `pg_type`, `pg_index`, `pg_constraint`, and other catalogs.
 
-### 008. Исследовать information_schema
+### 008. Research information_schema
 
-Сравнить standard-compatible metadata views с PostgreSQL-specific system catalogs.
+Compare standard-compatible metadata views with PostgreSQL-specific system catalogs.
 
-### 009. Исследовать PostgreSQL extensions
+### 009. Research PostgreSQL extensions
 
-Разобрать extension lifecycle, control files, SQL migrations и dependency management.
+Analyze the extension lifecycle, control files, SQL migrations, and dependency management.
 
-### 010. Исследовать PostgreSQL configuration hierarchy
+### 010. Research the PostgreSQL configuration hierarchy
 
-Разобрать `postgresql.conf`, `ALTER SYSTEM`, database-level, role-level и session-level settings.
+Analyze `postgresql.conf`, `ALTER SYSTEM`, database-level, role-level, and session-level settings.
 
-### 011. Исследовать transaction processing
+### 011. Research transaction processing
 
-Определить роль transactions, atomicity, consistency, isolation и durability.
+Determine the role of transactions, atomicity, consistency, isolation, and durability.
 
-### 012. Исследовать MVCC
+### 012. Research MVCC
 
-Разобрать видимость tuple versions без блокировки обычных readers и writers.
+Analyze visibility of tuple versions without blocking ordinary readers and writers.
 
-### 013. Исследовать query optimization
+### 013. Research query optimization
 
-Определить роль statistics, cost model, selectivity и plan alternatives.
+Determine the role of statistics, the cost model, selectivity, and plan alternatives.
 
-### 014. Исследовать durability
+### 014. Research durability
 
-Разобрать WAL, checkpoints, fsync, full-page writes и crash recovery.
+Analyze WAL, checkpoints, fsync, full-page writes, and crash recovery.
 
-### 015. Исследовать concurrency control
+### 015. Research concurrency control
 
-Разобрать snapshots, locks, deadlocks, predicate locking и serialization failures.
+Analyze snapshots, locks, deadlocks, predicate locking, and serialization failures.
 
-### 016. Исследовать database normalization
+### 016. Research database normalization
 
-Разобрать functional dependencies и нормальные формы от 1NF до BCNF.
+Analyze functional dependencies and normal forms from 1NF to BCNF.
 
-### 017. Исследовать denormalization
+### 017. Research denormalization
 
-Определить случаи осознанного дублирования данных ради чтения и аналитических запросов.
+Determine cases of intentional data duplication for reads and analytical queries.
 
-### 018. Исследовать OLTP и OLAP workloads
+### 018. Research OLTP and OLAP workloads
 
-Сравнить patterns запросов, transaction size, indexing и storage requirements.
+Compare query patterns, transaction size, indexing, and storage requirements.
 
-### 019. Исследовать PostgreSQL release lifecycle
+### 019. Research the PostgreSQL release lifecycle
 
-Определить major versions, minor updates, compatibility и upgrade requirements.
+Determine major versions, minor updates, compatibility, and upgrade requirements.
 
-### 020. Зафиксировать цели лаборатории
+### 020. Record the laboratory goals
 
-Документировать набор исследуемых internals, production scenarios и критерии проверки результатов.
+Document the set of internals being researched, production scenarios, and criteria for verifying results.
 
-## 2. Локальная среда и инструменты
+## 2. Local environment and tools
 
-### 021. Создать структуру репозитория
+### 021. Create the repository structure
 
-Разделить schema, migrations, experiments, benchmarks, scripts, reports и documentation.
+Separate schema, migrations, experiments, benchmarks, scripts, reports, and documentation.
 
-### 022. Подготовить Docker Compose
+### 022. Prepare Docker Compose
 
-Развернуть PostgreSQL, PgBouncer, Prometheus exporter и Grafana.
+Deploy PostgreSQL, PgBouncer, Prometheus exporter, and Grafana.
 
-### 023. Зафиксировать версию PostgreSQL
+### 023. Fix the PostgreSQL version
 
-Использовать конкретный major release и документировать отличия от соседних версий.
+Use a specific major release and document differences from adjacent versions.
 
-### 024. Настроить persistent storage
+### 024. Configure persistent storage
 
-Сохранять `PGDATA` между перезапусками и позволить отдельные сценарии полного сброса cluster.
+Preserve `PGDATA` between restarts and allow separate scenarios for a complete cluster reset.
 
-### 025. Настроить custom postgresql.conf
+### 025. Configure a custom postgresql.conf
 
-Подключить отдельный конфигурационный файл с параметрами для experiments.
+Connect a separate configuration file with parameters for experiments.
 
-### 026. Настроить pg_hba.conf
+### 026. Configure pg_hba.conf
 
-Создать явные правила local, application, replication и administration connections.
+Create explicit rules for local, application, replication, and administration connections.
 
-### 027. Создать database roles
+### 027. Create database roles
 
-Разделить migration, application, read-only, monitoring и replication roles.
+Separate migration, application, read-only, monitoring, and replication roles.
 
-### 028. Настроить psql
+### 028. Configure psql
 
-Добавить `.psqlrc`, expanded output, timing и удобное отображение query plans.
+Add `.psqlrc`, expanded output, timing, and convenient query-plan display.
 
-### 029. Подключить pg_stat_statements
+### 029. Enable pg_stat_statements
 
-Собирать нормализованную статистику SQL-запросов.
+Collect normalized SQL query statistics.
 
-### 030. Подключить auto_explain
+### 030. Enable auto_explain
 
-Автоматически логировать plans медленных запросов.
+Automatically log plans of slow queries.
 
-### 031. Подключить pageinspect
+### 031. Enable pageinspect
 
-Исследовать содержимое heap и index pages.
+Research the contents of heap and index pages.
 
-### 032. Подключить pgstattuple
+### 032. Enable pgstattuple
 
-Измерять live tuples, dead tuples и bloat.
+Measure live tuples, dead tuples, and bloat.
 
-### 033. Подключить amcheck
+### 033. Enable amcheck
 
-Проверять физическую целостность B-tree indexes.
+Check the physical integrity of B-tree indexes.
 
-### 034. Подключить pg_buffercache
+### 034. Enable pg_buffercache
 
-Исследовать содержимое shared buffer cache.
+Research the contents of the shared buffer cache.
 
-### 035. Подключить pg_prewarm
+### 035. Enable pg_prewarm
 
-Управлять предварительной загрузкой relations в cache.
+Manage preloading of relations into the cache.
 
-### 036. Подключить hypopg
+### 036. Enable hypopg
 
-Создавать hypothetical indexes без фактического построения.
+Create hypothetical indexes without actually building them.
 
-### 037. Подключить pg_trgm
+### 037. Enable pg_trgm
 
-Исследовать trigram indexes и fuzzy search.
+Research trigram indexes and fuzzy search.
 
-### 038. Подготовить генератор тестовых данных
+### 038. Prepare a test data generator
 
-Создавать reproducible datasets разного размера и распределения.
+Create reproducible datasets of different sizes and distributions.
 
-### 039. Создать сценарии сброса лаборатории
+### 039. Create laboratory reset scenarios
 
-Автоматизировать удаление и повторное создание schema, data и statistics.
+Automate deletion and recreation of schema, data, and statistics.
 
-### 040. Создать шаблон отчёта experiment
+### 040. Create an experiment report template
 
-Фиксировать hypothesis, setup, SQL, measurements, plan и conclusions.
+Record hypothesis, setup, SQL, measurements, plan, and conclusions.
 
-## 3. Физическое хранение и страницы
+## 3. Physical storage and pages
 
-### 041. Исследовать database cluster layout
+### 041. Research the database cluster layout
 
-Разобрать назначение `base`, `global`, `pg_wal`, `pg_tblspc` и других directories.
+Analyze the purpose of `base`, `global`, `pg_wal`, `pg_tblspc`, and other directories.
 
-### 042. Исследовать relation files
+### 042. Research relation files
 
-Определить связь relation OID, relfilenode и physical files.
+Determine the relationship between relation OID, relfilenode, and physical files.
 
-### 043. Исследовать relation forks
+### 043. Research relation forks
 
-Разобрать main, free space map, visibility map и initialization forks.
+Analyze main, free space map, visibility map, and initialization forks.
 
-### 044. Исследовать relation segmentation
+### 044. Research relation segmentation
 
-Проверить разбиение больших relations на segment files.
+Check the splitting of large relations into segment files.
 
-### 045. Исследовать PostgreSQL pages
+### 045. Research PostgreSQL pages
 
-Разобрать fixed-size page, page header, line pointers и tuple data.
+Analyze the fixed-size page, page header, line pointers, and tuple data.
 
-### 046. Исследовать heap page layout
+### 046. Research heap page layout
 
-Использовать `pageinspect` для анализа tuple placement.
+Use `pageinspect` to analyze tuple placement.
 
-### 047. Исследовать tuple header
+### 047. Research the tuple header
 
-Разобрать `xmin`, `xmax`, `ctid`, infomask и null bitmap.
+Analyze `xmin`, `xmax`, `ctid`, infomask, and the null bitmap.
 
-### 048. Исследовать item pointers
+### 048. Research item pointers
 
-Определить роль line pointer и tuple relocation.
+Determine the role of a line pointer and tuple relocation.
 
-### 049. Исследовать CTID
+### 049. Research CTID
 
-Проверить изменение physical tuple location после UPDATE и VACUUM FULL.
+Check changes in physical tuple location after UPDATE and VACUUM FULL.
 
-### 050. Исследовать free space map
+### 050. Research the free space map
 
-Проверить, как PostgreSQL находит pages со свободным местом.
+Check how PostgreSQL finds pages with free space.
 
-### 051. Исследовать visibility map
+### 051. Research the visibility map
 
-Разобрать all-visible и all-frozen bits.
+Analyze the all-visible and all-frozen bits.
 
-### 052. Исследовать fillfactor
+### 052. Research fillfactor
 
-Измерить влияние свободного пространства pages на UPDATE и bloat.
+Measure the impact of free space in pages on UPDATE and bloat.
 
-### 053. Исследовать TOAST
+### 053. Research TOAST
 
-Разобрать compression, out-of-line storage и TOAST tables.
+Analyze compression, out-of-line storage, and TOAST tables.
 
-### 054. Исследовать TOAST thresholds
+### 054. Research TOAST thresholds
 
-Проверить момент перехода больших values в compressed или external storage.
+Check when large values move to compressed or external storage.
 
-### 055. Исследовать varlena representation
+### 055. Research varlena representation
 
-Разобрать хранение variable-length values.
+Analyze storage of variable-length values.
 
-### 056. Исследовать tuple alignment
+### 056. Research tuple alignment
 
-Определить влияние порядка columns на padding и row size.
+Determine the impact of column order on padding and row size.
 
-### 057. Сравнить порядок columns
+### 057. Compare column order
 
-Измерить physical row size для разных вариантов schema.
+Measure physical row size for different schema variants.
 
-### 058. Исследовать page splits
+### 058. Research page splits
 
-Проверить split behavior B-tree pages при случайных и последовательных inserts.
+Check B-tree page split behavior with random and sequential inserts.
 
-### 059. Исследовать relation extension
+### 059. Research relation extension
 
-Проверить выделение новых pages при росте table.
+Check allocation of new pages as a table grows.
 
-### 060. Исследовать table rewrites
+### 060. Research table rewrites
 
-Определить operations, вызывающие полную физическую перезапись table.
+Determine operations that cause a complete physical rewrite of the table.
 
-### 061. Исследовать unlogged tables
+### 061. Research unlogged tables
 
-Сравнить performance, WAL generation и crash behavior.
+Compare performance, WAL generation, and crash behavior.
 
-### 062. Исследовать temporary tables
+### 062. Research temporary tables
 
-Разобрать session scope, catalog overhead и storage behavior.
+Analyze session scope, catalog overhead, and storage behavior.
 
-### 063. Исследовать tablespaces
+### 063. Research tablespaces
 
-Создать отдельный tablespace и переместить relation.
+Create a separate tablespace and move a relation.
 
-### 064. Исследовать data checksums
+### 064. Research data checksums
 
-Проверить назначение page checksums и ограничения их включения.
+Check the purpose of page checksums and the limitations of enabling them.
 
-### 065. Исследовать relation size functions
+### 065. Research relation size functions
 
-Использовать `pg_relation_size`, `pg_table_size` и `pg_total_relation_size`.
+Use `pg_relation_size`, `pg_table_size`, and `pg_total_relation_size`.
 
-### 066. Исследовать block reads
+### 066. Research block reads
 
-Сопоставить logical и physical reads для relation.
+Compare logical and physical reads for a relation.
 
-### 067. Исследовать cache warming
+### 067. Research cache warming
 
-Сравнить cold-cache и warm-cache execution.
+Compare cold-cache and warm-cache execution.
 
-### 068. Исследовать operating-system page cache
+### 068. Research the operating-system page cache
 
-Определить взаимодействие shared_buffers и filesystem cache.
+Determine the interaction between shared_buffers and the filesystem cache.
 
-### 069. Исследовать direct I/O ограничения
+### 069. Research direct I/O limitations
 
-Разобрать традиционную зависимость PostgreSQL от operating-system cache.
+Analyze PostgreSQL's traditional dependence on the operating-system cache.
 
-### 070. Документировать storage internals
+### 070. Document storage internals
 
-Создать схему physical storage hierarchy и tuple lifecycle.
+Create a diagram of the physical storage hierarchy and tuple lifecycle.
 
-## 4. Типы данных
+## 4. Data types
 
-### 071. Исследовать integer types
+### 071. Research integer types
 
-Сравнить `smallint`, `integer` и `bigint` по range и storage size.
+Compare `smallint`, `integer`, and `bigint` by range and storage size.
 
-### 072. Исследовать numeric
+### 072. Research numeric
 
-Разобрать arbitrary precision, scale, storage и computational cost.
+Analyze arbitrary precision, scale, storage, and computational cost.
 
-### 073. Сравнить numeric и floating-point
+### 073. Compare numeric and floating-point
 
-Проверить precision и performance `numeric`, `real` и `double precision`.
+Check the precision and performance of `numeric`, `real`, and `double precision`.
 
-### 074. Исследовать monetary representation
+### 074. Research monetary representation
 
-Сравнить integer minor units и `numeric` для денежных значений.
+Compare integer minor units and `numeric` for monetary values.
 
-### 075. Исследовать character types
+### 075. Research character types
 
-Сравнить `text`, `varchar` и `char`.
+Compare `text`, `varchar`, and `char`.
 
-### 076. Проверить ограничения varchar
+### 076. Check varchar constraints
 
-Определить, когда length constraint даёт business value.
+Determine when a length constraint provides business value.
 
-### 077. Исследовать collations
+### 077. Research collations
 
-Разобрать locale-aware comparison и sorting.
+Analyze locale-aware comparison and sorting.
 
-### 078. Исследовать deterministic collations
+### 078. Research deterministic collations
 
-Определить влияние deterministic mode на equality и indexing.
+Determine the impact of deterministic mode on equality and indexing.
 
-### 079. Исследовать ICU collations
+### 079. Research ICU collations
 
-Создать и проверить ICU collation.
+Create and check an ICU collation.
 
-### 080. Исследовать case-insensitive text
+### 080. Research case-insensitive text
 
-Сравнить normalized text, functional index и `citext`.
+Compare normalized text, a functional index, and `citext`.
 
-### 081. Исследовать boolean
+### 081. Research boolean
 
-Зафиксировать корректное использование `boolean` вместо nullable status flags.
+Record the correct use of `boolean` instead of nullable status flags.
 
-### 082. Исследовать date и time types
+### 082. Research date and time types
 
-Сравнить `date`, `time`, `timestamp` и `timestamptz`.
+Compare `date`, `time`, `timestamp`, and `timestamptz`.
 
-### 083. Исследовать timestamp semantics
+### 083. Research timestamp semantics
 
-Проверить хранение и отображение `timestamp with time zone`.
+Check storage and display of `timestamp with time zone`.
 
-### 084. Исследовать intervals
+### 084. Research intervals
 
-Разобрать months, days, microseconds и calendar arithmetic.
+Analyze months, days, microseconds, and calendar arithmetic.
 
-### 085. Исследовать timezone behavior
+### 085. Research timezone behavior
 
-Проверить session timezone и daylight-saving transitions.
+Check the session timezone and daylight-saving transitions.
 
-### 086. Исследовать UUID
+### 086. Research UUID
 
-Сравнить UUID versions, generation и index locality.
+Compare UUID versions, generation, and index locality.
 
-### 087. Исследовать sequential identifiers
+### 087. Research sequential identifiers
 
-Сравнить `serial`, identity columns, UUID и ULID-like identifiers.
+Compare `serial`, identity columns, UUID, and ULID-like identifiers.
 
-### 088. Исследовать sequences
+### 088. Research sequences
 
-Разобрать caching, gaps, concurrency и transaction independence.
+Analyze caching, gaps, concurrency, and transaction independence.
 
-### 089. Исследовать identity columns
+### 089. Research identity columns
 
-Сравнить `GENERATED ALWAYS` и `GENERATED BY DEFAULT`.
+Compare `GENERATED ALWAYS` and `GENERATED BY DEFAULT`.
 
-### 090. Исследовать enum types
+### 090. Research enum types
 
-Определить преимущества, ограничения migrations и alternative lookup tables.
+Determine advantages, migration limitations, and alternative lookup tables.
 
-### 091. Исследовать domains
+### 091. Research domains
 
-Создать reusable constrained domain type.
+Create a reusable constrained domain type.
 
-### 092. Исследовать composite types
+### 092. Research composite types
 
-Использовать user-defined composite type и определить его ограничения.
+Use a user-defined composite type and determine its limitations.
 
-### 093. Исследовать arrays
+### 093. Research arrays
 
-Разобрать storage, operators, indexing и normalization trade-offs.
+Analyze storage, operators, indexing, and normalization trade-offs.
 
-### 094. Исследовать JSON
+### 094. Research JSON
 
-Сравнить textual JSON и binary JSONB.
+Compare textual JSON and binary JSONB.
 
-### 095. Исследовать JSONB storage
+### 095. Research JSONB storage
 
-Проверить normalization, key ordering и duplicate keys.
+Check normalization, key ordering, and duplicate keys.
 
-### 096. Исследовать JSONB operators
+### 096. Research JSONB operators
 
-Использовать containment, extraction и path queries.
+Use containment, extraction, and path queries.
 
-### 097. Исследовать range types
+### 097. Research range types
 
-Применить `int4range`, `daterange` и `tstzrange`.
+Apply `int4range`, `daterange`, and `tstzrange`.
 
-### 098. Исследовать multirange types
+### 098. Research multirange types
 
-Хранить наборы непересекающихся ranges.
+Store sets of non-overlapping ranges.
 
-### 099. Исследовать network types
+### 099. Research network types
 
-Использовать `inet`, `cidr` и network operators.
+Use `inet`, `cidr`, and network operators.
 
-### 100. Исследовать binary data
+### 100. Research binary data
 
-Сравнить `bytea`, large objects и external object storage.
+Compare `bytea`, large objects, and external object storage.
 
-### 101. Исследовать full-text types
+### 101. Research full-text types
 
-Разобрать `tsvector`, `tsquery` и dictionaries.
+Analyze `tsvector`, `tsquery`, and dictionaries.
 
-### 102. Исследовать geometric types
+### 102. Research geometric types
 
-Проверить встроенные point, box и path types.
+Check built-in point, box, and path types.
 
-### 103. Исследовать generated columns
+### 103. Research generated columns
 
-Создать stored generated column и измерить write/read trade-off.
+Create a stored generated column and measure the write/read trade-off.
 
-### 104. Исследовать null semantics
+### 104. Research null semantics
 
-Разобрать three-valued logic и `IS DISTINCT FROM`.
+Analyze three-valued logic and `IS DISTINCT FROM`.
 
-### 105. Создать руководство выбора типов
+### 105. Create a type selection guide
 
-Документировать правила выбора PostgreSQL data types для production schema.
+Document rules for selecting PostgreSQL data types for a production schema.
 
-## 5. Проектирование schema
 
-### 106. Спроектировать демонстрационный domain
+## 5. Schema design
 
-Создать схему customers, organizations, projects, orders, payments и events.
+### 106. Design a demonstration domain
 
-### 107. Определить primary keys
+Create a schema for customers, organizations, projects, orders, payments, and events.
 
-Выбрать natural или surrogate keys для каждой entity.
+### 107. Define primary keys
 
-### 108. Исследовать natural keys
+Choose natural or surrogate keys for each entity.
 
-Оценить stability, size и propagation business identifiers.
+### 108. Research natural keys
 
-### 109. Исследовать surrogate keys
+Evaluate the stability, size, and propagation of business identifiers.
 
-Оценить простоту joins, migrations и distributed generation.
+### 109. Research surrogate keys
 
-### 110. Реализовать normalization до 3NF
+Evaluate simplicity of joins, migrations, and distributed generation.
 
-Устранить repeating groups, partial и transitive dependencies.
+### 110. Implement normalization to 3NF
 
-### 111. Исследовать BCNF
+Eliminate repeating groups, partial dependencies, and transitive dependencies.
 
-Найти relation, где 3NF недостаточна для устранения anomalies.
+### 111. Research BCNF
 
-### 112. Исследовать denormalized read model
+Find a relation where 3NF is insufficient to eliminate anomalies.
 
-Создать отдельную таблицу для ускорения сложного read path.
+### 112. Research a denormalized read model
 
-### 113. Сравнить entity table и JSONB blob
+Create a separate table to accelerate a complex read path.
 
-Измерить queryability, validation и indexing.
+### 113. Compare an entity table and a JSONB blob
 
-### 114. Спроектировать one-to-one relation
+Measure queryability, validation, and indexing.
 
-Выбрать shared primary key или unique foreign key.
+### 114. Design a one-to-one relation
 
-### 115. Спроектировать one-to-many relation
+Choose a shared primary key or a unique foreign key.
 
-Настроить foreign key и indexes для parent-child access.
+### 115. Design a one-to-many relation
 
-### 116. Спроектировать many-to-many relation
+Configure the foreign key and indexes for parent-child access.
 
-Создать join table с composite uniqueness.
+### 116. Design a many-to-many relation
 
-### 117. Спроектировать hierarchical data
+Create a join table with composite uniqueness.
 
-Сравнить adjacency list, materialized path, nested sets и closure table.
+### 117. Design hierarchical data
 
-### 118. Реализовать adjacency list
+Compare adjacency list, materialized path, nested sets, and closure table.
 
-Создать recursive queries через `WITH RECURSIVE`.
+### 118. Implement an adjacency list
 
-### 119. Реализовать materialized path
+Create recursive queries through `WITH RECURSIVE`.
 
-Использовать `ltree` или textual path representation.
+### 119. Implement a materialized path
 
-### 120. Реализовать closure table
+Use `ltree` or a textual path representation.
 
-Поддержать быстрый поиск ancestors и descendants.
+### 120. Implement a closure table
 
-### 121. Спроектировать polymorphic relations
+Support fast search for ancestors and descendants.
 
-Сравнить nullable foreign keys, association tables и shared parent entity.
+### 121. Design polymorphic relations
 
-### 122. Избежать generic entity-attribute-value model
+Compare nullable foreign keys, association tables, and a shared parent entity.
 
-Показать проблемы typing, constraints и query planning EAV.
+### 122. Avoid a generic entity-attribute-value model
 
-### 123. Спроектировать status model
+Show the typing, constraint, and query-planning problems of EAV.
 
-Сравнить enum, lookup table и state transition table.
+### 123. Design a status model
 
-### 124. Спроектировать temporal data
+Compare an enum, lookup table, and state transition table.
 
-Хранить valid-time и system-time intervals.
+### 124. Design temporal data
 
-### 125. Реализовать append-only history
+Store valid-time and system-time intervals.
 
-Сохранять изменения сущности отдельными immutable records.
+### 125. Implement append-only history
 
-### 126. Реализовать audit snapshot model
+Store entity changes as separate immutable records.
 
-Хранить before и after representation с metadata.
+### 126. Implement an audit snapshot model
 
-### 127. Спроектировать soft deletion
+Store before and after representations with metadata.
 
-Добавить `deleted_at` и определить влияние на uniqueness и indexes.
+### 127. Design soft deletion
 
-### 128. Спроектировать archival model
+Add `deleted_at` and determine its impact on uniqueness and indexes.
 
-Перемещать historical data в отдельные partitions или tables.
+### 128. Design an archival model
 
-### 129. Спроектировать multi-tenant schema
+Move historical data to separate partitions or tables.
 
-Добавить tenant key во все tenant-owned relations.
+### 129. Design a multi-tenant schema
 
-### 130. Добавить composite tenant constraints
+Add a tenant key to all tenant-owned relations.
 
-Исключить cross-tenant references на database level.
+### 130. Add composite tenant constraints
 
-## 6. Constraints и целостность данных
+Prevent cross-tenant references at the database level.
 
-### 131. Реализовать primary key constraints
+## 6. Constraints and data integrity
 
-Проверить автоматическое создание unique B-tree index.
+### 131. Implement primary key constraints
 
-### 132. Реализовать foreign key constraints
+Check automatic creation of a unique B-tree index.
 
-Проверить referential integrity при insert, update и delete.
+### 132. Implement foreign key constraints
 
-### 133. Исследовать foreign key indexes
+Check referential integrity on insert, update, and delete.
 
-Показать, что PostgreSQL не создаёт index на referencing column автоматически.
+### 133. Research foreign key indexes
 
-### 134. Исследовать foreign key actions
+Show that PostgreSQL does not create an index on the referencing column automatically.
 
-Сравнить `NO ACTION`, `RESTRICT`, `CASCADE`, `SET NULL` и `SET DEFAULT`.
+### 134. Research foreign key actions
 
-### 135. Исследовать deferred foreign keys
+Compare `NO ACTION`, `RESTRICT`, `CASCADE`, `SET NULL`, and `SET DEFAULT`.
 
-Отложить проверку constraint до commit.
+### 135. Research deferred foreign keys
 
-### 136. Реализовать unique constraints
+Defer constraint checking until commit.
 
-Зафиксировать business uniqueness на database level.
+### 136. Implement unique constraints
 
-### 137. Исследовать nulls в unique constraints
+Enforce business uniqueness at the database level.
 
-Проверить поведение нескольких NULL values.
+### 137. Research nulls in unique constraints
 
-### 138. Использовать NULLS NOT DISTINCT
+Check the behavior of multiple NULL values.
 
-Запретить несколько NULL values в unique constraint.
+### 138. Use NULLS NOT DISTINCT
 
-### 139. Реализовать composite uniqueness
+Prohibit multiple NULL values in a unique constraint.
 
-Закрепить uniqueness внутри tenant или parent resource.
+### 139. Implement composite uniqueness
 
-### 140. Реализовать partial uniqueness
+Enforce uniqueness within a tenant or parent resource.
 
-Использовать partial unique index для active records.
+### 140. Implement partial uniqueness
 
-### 141. Реализовать check constraints
+Use a partial unique index for active records.
 
-Закрепить ranges, status combinations и invariants.
+### 141. Implement check constraints
 
-### 142. Исследовать check constraint limitations
+Enforce ranges, status combinations, and invariants.
 
-Показать, почему check не должен зависеть от других rows.
+### 142. Research check constraint limitations
 
-### 143. Реализовать exclusion constraint
+Show why a check should not depend on other rows.
 
-Запретить пересекающиеся ranges через GiST.
+### 143. Implement an exclusion constraint
 
-### 144. Исследовать NOT NULL
+Prohibit overlapping ranges through GiST.
 
-Сравнить column-level NOT NULL и equivalent CHECK.
+### 144. Research NOT NULL
 
-### 145. Добавить constraints через NOT VALID
+Compare column-level NOT NULL and an equivalent CHECK.
 
-Подготовить low-lock rollout constraint на большой table.
+### 145. Add constraints through NOT VALID
 
-### 146. Выполнить VALIDATE CONSTRAINT
+Prepare a low-lock constraint rollout on a large table.
 
-Проверить existing rows отдельно от короткой metadata operation.
+### 146. Execute VALIDATE CONSTRAINT
 
-### 147. Исследовать constraint locking
+Check existing rows separately from the short metadata operation.
 
-Измерить locks при добавлении и validation constraints.
+### 147. Research constraint locking
 
-### 148. Создать domain constraints
+Measure locks during constraint addition and validation.
 
-Переиспользовать validation через custom domain.
+### 148. Create domain constraints
 
-### 149. Реализовать transition constraints
+Reuse validation through a custom domain.
 
-Использовать trigger только для invariants, не выражаемых declarative constraints.
+### 149. Implement transition constraints
 
-### 150. Исследовать assertions absence
+Use a trigger only for invariants that cannot be expressed through declarative constraints.
 
-Разобрать отсутствие standard SQL ASSERTION в PostgreSQL.
+### 150. Research the absence of assertions
 
-### 151. Реализовать immutable column protection
+Analyze the absence of standard SQL ASSERTION in PostgreSQL.
 
-Запретить изменение business identifier через trigger.
+### 151. Implement immutable column protection
 
-### 152. Реализовать cross-row invariant
+Prohibit changing a business identifier through a trigger.
 
-Создать transaction-safe механизм для ограничения между несколькими rows.
+### 152. Implement a cross-row invariant
 
-### 153. Проверить race condition SELECT-then-INSERT
+Create a transaction-safe mechanism for a constraint spanning multiple rows.
 
-Показать, почему application-side uniqueness недостаточна.
+### 153. Check the SELECT-then-INSERT race condition
 
-### 154. Использовать INSERT ON CONFLICT
+Show why application-side uniqueness is insufficient.
 
-Реализовать atomic upsert на основе unique constraint.
+### 154. Use INSERT ON CONFLICT
 
-### 155. Исследовать ON CONFLICT concurrency
+Implement an atomic upsert based on a unique constraint.
 
-Проверить поведение competing inserts.
+### 155. Research ON CONFLICT concurrency
 
-### 156. Использовать RETURNING
+Check the behavior of competing inserts.
 
-Получать данные изменённых rows без дополнительного SELECT.
+### 156. Use RETURNING
 
-### 157. Реализовать generated defaults
+Retrieve changed rows without an additional SELECT.
 
-Использовать database-generated identifiers и timestamps.
+### 157. Implement generated defaults
 
-### 158. Запретить invalid state combinations
+Use database-generated identifiers and timestamps.
 
-Добавить composite check constraints.
+### 158. Prohibit invalid state combinations
 
-### 159. Создать integrity test suite
+Add composite check constraints.
 
-Намеренно нарушать constraints и проверять ожидаемые SQLSTATE.
+### 159. Create an integrity test suite
 
-### 160. Документировать ownership constraints
+Intentionally violate constraints and check expected SQLSTATE values.
 
-Зафиксировать invariants, гарантируемые database, application и external systems.
+### 160. Document ownership constraints
+
+Record invariants guaranteed by the database, application, and external systems.
 
 ## 7. B-tree indexes
 
-### 161. Исследовать B-tree structure
+### 161. Research B-tree structure
 
-Разобрать root, internal, leaf pages и sibling links.
+Analyze root, internal, and leaf pages, and sibling links.
 
-### 162. Создать single-column B-tree index
+### 162. Create a single-column B-tree index
 
-Измерить влияние на equality и range query.
+Measure its impact on equality and range queries.
 
-### 163. Исследовать index tuple layout
+### 163. Research index tuple layout
 
-Разобрать key data, TID и included columns.
+Analyze key data, TID, and included columns.
 
-### 164. Исследовать B-tree operator classes
+### 164. Research B-tree operator classes
 
-Определить связь operators и index ordering.
+Determine the relationship between operators and index ordering.
 
-### 165. Исследовать ascending и descending indexes
+### 165. Research ascending and descending indexes
 
-Проверить backward scan и mixed-order multicolumn index.
+Check backward scans and mixed-order multicolumn indexes.
 
-### 166. Исследовать NULLS FIRST и NULLS LAST
+### 166. Research NULLS FIRST and NULLS LAST
 
-Проверить использование index для сортировки nullable values.
+Check index use for sorting nullable values.
 
-### 167. Создать multicolumn index
+### 167. Create a multicolumn index
 
-Исследовать leftmost prefix rule.
+Research the leftmost prefix rule.
 
-### 168. Исследовать skip scan
+### 168. Research skip scan
 
-Проверить возможность использования позднего column multicolumn index.
+Check whether a later column of a multicolumn index can be used.
 
-### 169. Измерить selectivity первого column
+### 169. Measure the selectivity of the first column
 
-Сравнить порядок columns при разных query patterns.
+Compare column order for different query patterns.
 
-### 170. Создать covering index
+### 170. Create a covering index
 
-Использовать INCLUDE для index-only scan.
+Use INCLUDE for an index-only scan.
 
-### 171. Исследовать INCLUDE limitations
+### 171. Research INCLUDE limitations
 
-Определить влияние included columns на index size и uniqueness.
+Determine the impact of included columns on index size and uniqueness.
 
-### 172. Создать partial index
+### 172. Create a partial index
 
-Индексировать только active или frequently queried rows.
+Index only active or frequently queried rows.
 
-### 173. Проверить predicate matching
+### 173. Check predicate matching
 
-Показать, когда planner не может доказать соответствие WHERE partial index predicate.
+Show when the planner cannot prove correspondence with a partial-index WHERE predicate.
 
-### 174. Создать expression index
+### 174. Create an expression index
 
-Индексировать `lower(email)` или вычисляемое выражение.
+Index `lower(email)` or a computed expression.
 
-### 175. Проверить expression equivalence
+### 175. Check expression equivalence
 
-Показать влияние casts и function wrapping на index usage.
+Show the impact of casts and function wrapping on index usage.
 
-### 176. Исследовать immutable functions
+### 176. Research immutable functions
 
-Определить требования к expressions в index.
+Determine requirements for expressions in an index.
 
-### 177. Создать unique expression index
+### 177. Create a unique expression index
 
-Закрепить case-insensitive uniqueness.
+Enforce case-insensitive uniqueness.
 
-### 178. Исследовать index deduplication
+### 178. Research index deduplication
 
-Проверить уменьшение B-tree при повторяющихся keys.
+Check B-tree size reduction for repeated keys.
 
-### 179. Исследовать index fillfactor
+### 179. Research index fillfactor
 
-Измерить page splits и free space.
+Measure page splits and free space.
 
-### 180. Исследовать index correlation
+### 180. Research index correlation
 
-Связать physical heap order и planner cost.
+Relate physical heap order to planner cost.
 
-### 181. Использовать CLUSTER
+### 181. Use CLUSTER
 
-Перестроить table в порядке index и измерить range scans.
+Rebuild a table in index order and measure range scans.
 
-### 182. Проверить degradation после CLUSTER
+### 182. Check degradation after CLUSTER
 
-Показать потерю physical ordering при последующих writes.
+Show loss of physical ordering after subsequent writes.
 
-### 183. Использовать REINDEX
+### 183. Use REINDEX
 
-Перестроить повреждённый или bloated index.
+Rebuild a corrupted or bloated index.
 
-### 184. Использовать REINDEX CONCURRENTLY
+### 184. Use REINDEX CONCURRENTLY
 
-Перестроить index с минимальной блокировкой writes.
+Rebuild an index with minimal write blocking.
 
-### 185. Исследовать duplicate indexes
+### 185. Research duplicate indexes
 
-Найти indexes, покрывающие одинаковые column prefixes.
+Find indexes covering the same column prefixes.
 
-### 186. Исследовать unused indexes
+### 186. Research unused indexes
 
-Использовать `pg_stat_user_indexes` и учитывать reset statistics.
+Use `pg_stat_user_indexes` and account for statistics resets.
 
-### 187. Измерить write amplification
+### 187. Measure write amplification
 
-Сравнить INSERT и UPDATE performance при разном числе indexes.
+Compare INSERT and UPDATE performance with different numbers of indexes.
 
-### 188. Измерить index size
+### 188. Measure index size
 
-Использовать `pg_relation_size` и `pgstattuple`.
+Use `pg_relation_size` and `pgstattuple`.
 
-### 189. Исследовать index bloat
+### 189. Research index bloat
 
-Создать churn workload и измерить growth.
+Create a churn workload and measure growth.
 
-### 190. Проверить B-tree integrity
+### 190. Check B-tree integrity
 
-Использовать `amcheck`.
+Use `amcheck`.
 
-### 191. Исследовать concurrent index build
+### 191. Research concurrent index build
 
-Проверить phases и invalid index states.
+Check phases and invalid index states.
 
-### 192. Обработать failed CREATE INDEX CONCURRENTLY
+### 192. Handle failed CREATE INDEX CONCURRENTLY
 
-Найти и удалить invalid index.
+Find and remove an invalid index.
 
-### 193. Исследовать lock behavior index DDL
+### 193. Research lock behavior of index DDL
 
-Измерить locks обычного и concurrent index creation.
+Measure locks of regular and concurrent index creation.
 
-### 194. Создать index naming convention
+### 194. Create an index naming convention
 
-Зафиксировать стабильные и понятные names.
+Record stable and understandable names.
 
-### 195. Документировать B-tree decision rules
+### 195. Document B-tree decision rules
 
-Составить руководство выбора single, composite, partial, expression и covering indexes.
+Create a guide for choosing single, composite, partial, expression, and covering indexes.
 
-## 8. Другие index access methods
+## 8. Other index access methods
 
-### 196. Исследовать Hash indexes
+### 196. Research Hash indexes
 
-Сравнить equality lookups, WAL support и ограничения.
+Compare equality lookups, WAL support, and limitations.
 
-### 197. Создать Hash index
+### 197. Create a Hash index
 
-Измерить размер и performance относительно B-tree.
+Measure size and performance relative to B-tree.
 
-### 198. Исследовать GiST
+### 198. Research GiST
 
-Разобрать generalized search tree и extensible operator classes.
+Analyze generalized search trees and extensible operator classes.
 
-### 199. Создать GiST range index
+### 199. Create a GiST range index
 
-Ускорить overlap и containment queries.
+Accelerate overlap and containment queries.
 
-### 200. Создать GiST geometric index
+### 200. Create a GiST geometric index
 
-Проверить spatial operators.
+Check spatial operators.
 
-### 201. Исследовать SP-GiST
+### 201. Research SP-GiST
 
-Разобрать space-partitioned search trees.
+Analyze space-partitioned search trees.
 
-### 202. Создать SP-GiST index
+### 202. Create an SP-GiST index
 
-Проверить prefix или geometric workload.
+Check a prefix or geometric workload.
 
-### 203. Исследовать GIN
+### 203. Research GIN
 
-Разобрать inverted index для composite values.
+Analyze the inverted index for composite values.
 
-### 204. Создать GIN JSONB index
+### 204. Create a GIN JSONB index
 
-Ускорить containment queries.
+Accelerate containment queries.
 
-### 205. Сравнить jsonb_ops и jsonb_path_ops
+### 205. Compare jsonb_ops and jsonb_path_ops
 
-Измерить размер, supported operators и performance.
+Measure size, supported operators, and performance.
 
-### 206. Создать GIN array index
+### 206. Create a GIN array index
 
-Ускорить containment и overlap.
+Accelerate containment and overlap.
 
-### 207. Создать GIN full-text index
+### 207. Create a GIN full-text index
 
-Ускорить `tsvector` search.
+Accelerate `tsvector` search.
 
-### 208. Исследовать GIN pending list
+### 208. Research the GIN pending list
 
-Разобрать fastupdate и deferred index maintenance.
+Analyze fastupdate and deferred index maintenance.
 
-### 209. Измерить GIN write cost
+### 209. Measure GIN write cost
 
-Сравнить inserts с `fastupdate` enabled и disabled.
+Compare inserts with `fastupdate` enabled and disabled.
 
-### 210. Исследовать BRIN
+### 210. Research BRIN
 
-Разобрать block range summaries.
+Analyze block range summaries.
 
-### 211. Создать BRIN index
+### 211. Create a BRIN index
 
-Применить его к large append-only time-series table.
+Apply it to a large append-only time-series table.
 
-### 212. Измерить влияние correlation на BRIN
+### 212. Measure the impact of correlation on BRIN
 
-Сравнить ordered и randomized data.
+Compare ordered and randomized data.
 
-### 213. Исследовать BRIN pages_per_range
+### 213. Research BRIN pages_per_range
 
-Подобрать granularity и index size.
+Select granularity and index size.
 
-### 214. Использовать BRIN autosummarize
+### 214. Use BRIN autosummarize
 
-Проверить автоматическое summarization новых ranges.
+Check automatic summarization of new ranges.
 
-### 215. Исследовать Bloom indexes
+### 215. Research Bloom indexes
 
-Подключить extension и проверить multicolumn equality workload.
+Enable the extension and check a multicolumn equality workload.
 
-### 216. Сравнить B-tree и Bloom
+### 216. Compare B-tree and Bloom
 
-Оценить false positives, size и workload applicability.
+Evaluate false positives, size, and workload applicability.
 
-### 217. Исследовать trigram GIN
+### 217. Research trigram GIN
 
-Ускорить `LIKE`, `ILIKE` и similarity search.
+Accelerate `LIKE`, `ILIKE`, and similarity search.
 
-### 218. Исследовать trigram GiST
+### 218. Research trigram GiST
 
-Сравнить с GIN для fuzzy matching.
+Compare it with GIN for fuzzy matching.
 
-### 219. Исследовать full-text search configuration
+### 219. Research full-text search configuration
 
-Разобрать parser, dictionaries, lexemes и weights.
+Analyze the parser, dictionaries, lexemes, and weights.
 
-### 220. Создать weighted tsvector
+### 220. Create a weighted tsvector
 
-Назначить разный вес title и body.
+Assign different weights to title and body.
 
-### 221. Создать generated tsvector column
+### 221. Create a generated tsvector column
 
-Автоматически поддерживать searchable representation.
+Automatically maintain a searchable representation.
 
-### 222. Исследовать phrase search
+### 222. Research phrase search
 
-Использовать phrase operators и positions.
+Use phrase operators and positions.
 
-### 223. Исследовать custom operator classes
+### 223. Research custom operator classes
 
-Разобрать связь access method, strategy numbers и support functions.
+Analyze the relationship between access methods, strategy numbers, and support functions.
 
-### 224. Исследовать index access method API
+### 224. Research the index access method API
 
-Изучить базовую структуру extensibility PostgreSQL indexes.
+Study the basic structure of PostgreSQL index extensibility.
 
-### 225. Создать matrix index types
+### 225. Create an index-type matrix
 
-Сопоставить data type, operators, access method и workload.
+Map data type, operators, access method, and workload.
 
-## 9. Query planner и statistics
 
-### 226. Исследовать parser
+## 9. Query planner and statistics
 
-Разобрать преобразование SQL text в parse tree.
+### 226. Research the parser
 
-### 227. Исследовать analyzer
+Analyze transformation of SQL text into a parse tree.
 
-Проверить resolution relations, columns, types и implicit casts.
+### 227. Research the analyzer
 
-### 228. Исследовать rewrite system
+Check resolution of relations, columns, types, and implicit casts.
 
-Разобрать rules, views и query tree rewriting.
+### 228. Research the rewrite system
 
-### 229. Исследовать planner
+Analyze rules, views, and query-tree rewriting.
 
-Определить generation paths, cost comparison и final plan.
+### 229. Research the planner
 
-### 230. Исследовать executor
+Determine path generation, cost comparison, and the final plan.
 
-Разобрать pull-based execution plan nodes.
+### 230. Research the executor
 
-### 231. Исследовать PostgreSQL cost model
+Analyze pull-based execution plan nodes.
 
-Разобрать startup cost, total cost и arbitrary cost units.
+### 231. Research the PostgreSQL cost model
 
-### 232. Исследовать seq_page_cost
+Analyze startup cost, total cost, and arbitrary cost units.
 
-Измерить влияние стоимости sequential I/O.
+### 232. Research seq_page_cost
 
-### 233. Исследовать random_page_cost
+Measure the impact of sequential I/O cost.
 
-Проверить выбор index scan при SSD-like configuration.
+### 233. Research random_page_cost
 
-### 234. Исследовать cpu_tuple_cost
+Check index-scan selection with SSD-like configuration.
 
-Определить влияние CPU cost на plan selection.
+### 234. Research cpu_tuple_cost
 
-### 235. Исследовать cpu_index_tuple_cost
+Determine the impact of CPU cost on plan selection.
 
-Разобрать стоимость index tuple processing.
+### 235. Research cpu_index_tuple_cost
 
-### 236. Исследовать cpu_operator_cost
+Analyze the cost of index tuple processing.
 
-Проверить влияние expensive predicates.
+### 236. Research cpu_operator_cost
 
-### 237. Исследовать effective_cache_size
+Check the impact of expensive predicates.
 
-Понять его роль как planner estimate, а не memory allocation.
+### 237. Research effective_cache_size
 
-### 238. Исследовать table statistics
+Understand its role as a planner estimate rather than memory allocation.
 
-Разобрать `reltuples`, `relpages` и их approximate nature.
+### 238. Research table statistics
 
-### 239. Исследовать column statistics
+Analyze `reltuples`, `relpages`, and their approximate nature.
 
-Разобрать null fraction, distinct count и average width.
+### 239. Research column statistics
 
-### 240. Исследовать most common values
+Analyze null fraction, distinct count, and average width.
 
-Проверить MCV list для skewed distribution.
+### 240. Research most common values
 
-### 241. Исследовать histograms
+Check the MCV list for a skewed distribution.
 
-Проверить selectivity range predicates.
+### 241. Research histograms
 
-### 242. Исследовать correlation statistics
+Check selectivity of range predicates.
 
-Связать physical ordering и index scan cost.
+### 242. Research correlation statistics
 
-### 243. Исследовать default_statistics_target
+Relate physical ordering to index-scan cost.
 
-Измерить точность estimates и ANALYZE cost.
+### 243. Research default_statistics_target
 
-### 244. Настроить per-column statistics target
+Measure estimate accuracy and ANALYZE cost.
 
-Увеличить statistics для skewed column.
+### 244. Configure a per-column statistics target
 
-### 245. Запустить ANALYZE
+Increase statistics for a skewed column.
 
-Проверить изменение cardinality estimates.
+### 245. Run ANALYZE
 
-### 246. Исследовать sampling
+Check changes in cardinality estimates.
 
-Понять, почему statistics являются approximate.
+### 246. Research sampling
 
-### 247. Создать extended statistics dependencies
+Understand why statistics are approximate.
 
-Улучшить estimates коррелирующих columns.
+### 247. Create extended statistics dependencies
 
-### 248. Создать extended statistics ndistinct
+Improve estimates for correlated columns.
 
-Улучшить GROUP BY и multicolumn estimates.
+### 248. Create extended statistics ndistinct
 
-### 249. Создать extended statistics MCV
+Improve GROUP BY and multicolumn estimates.
 
-Улучшить estimates комбинаций frequent values.
+### 249. Create extended statistics MCV
 
-### 250. Исследовать stale statistics
+Improve estimates for combinations of frequent values.
 
-Показать плохой plan после массового изменения данных.
+### 250. Research stale statistics
 
-### 251. Исследовать planner row estimates
+Show a poor plan after a large data change.
 
-Сравнить estimated и actual rows для каждого plan node.
+### 251. Research planner row estimates
 
-### 252. Исследовать selectivity equality
+Compare estimated and actual rows for each plan node.
 
-Проверить estimates для uniform и skewed values.
+### 252. Research equality selectivity
 
-### 253. Исследовать selectivity ranges
+Check estimates for uniform and skewed values.
 
-Проверить histogram boundaries.
+### 253. Research range selectivity
 
-### 254. Исследовать selectivity LIKE
+Check histogram boundaries.
 
-Проверить prefix и non-prefix patterns.
+### 254. Research LIKE selectivity
 
-### 255. Исследовать selectivity joins
+Check prefix and non-prefix patterns.
 
-Проверить estimates при foreign key и non-unique relations.
+### 255. Research join selectivity
 
-### 256. Исследовать functional dependencies
+Check estimates for foreign-key and non-unique relations.
 
-Показать улучшение estimates extended statistics.
+### 256. Research functional dependencies
 
-### 257. Исследовать parameterized queries
+Show improved estimates from extended statistics.
 
-Проверить влияние неизвестного parameter value на planning.
+### 257. Research parameterized queries
 
-### 258. Исследовать generic plan
+Check the impact of an unknown parameter value on planning.
 
-Определить условия перехода prepared statement на generic plan.
+### 258. Research the generic plan
 
-### 259. Исследовать custom plan
+Determine conditions for a prepared statement to switch to a generic plan.
 
-Сравнить plans для selective и non-selective parameters.
+### 259. Research the custom plan
 
-### 260. Настроить plan_cache_mode
+Compare plans for selective and non-selective parameters.
 
-Принудительно использовать generic или custom planning.
+### 260. Configure plan_cache_mode
 
-### 261. Исследовать prepared statement invalidation
+Force generic or custom planning.
 
-Проверить replan после DDL или statistics changes.
+### 261. Research prepared-statement invalidation
 
-### 262. Исследовать implicit casts
+Check replanning after DDL or statistics changes.
 
-Показать потерю index usage из-за type mismatch.
+### 262. Research implicit casts
 
-### 263. Исследовать function volatility
+Show loss of index usage because of a type mismatch.
 
-Разобрать VOLATILE, STABLE и IMMUTABLE.
+### 263. Research function volatility
 
-### 264. Исследовать planner constant folding
+Analyze VOLATILE, STABLE, and IMMUTABLE.
 
-Проверить вычисление immutable expressions во время planning.
+### 264. Research planner constant folding
 
-### 265. Исследовать constraint exclusion
+Check evaluation of immutable expressions during planning.
 
-Проверить исключение relations по constraints.
+### 265. Research constraint exclusion
 
-### 266. Исследовать partition pruning
+Check exclusion of relations by constraints.
 
-Сравнить planning-time и execution-time pruning.
+### 266. Research partition pruning
 
-### 267. Исследовать join order search
+Compare planning-time and execution-time pruning.
 
-Разобрать dynamic programming и GEQO.
+### 267. Research join-order search
 
-### 268. Настроить join_collapse_limit
+Analyze dynamic programming and GEQO.
 
-Проверить влияние на join reordering.
+### 268. Configure join_collapse_limit
 
-### 269. Настроить from_collapse_limit
+Check the impact on join reordering.
 
-Проверить flattening subqueries.
+### 269. Configure from_collapse_limit
 
-### 270. Исследовать GEQO
+Check flattening of subqueries.
 
-Проверить planning больших join graphs.
+### 270. Research GEQO
 
-## 10. Scan и join algorithms
+Check planning of large join graphs.
 
-### 271. Исследовать Sequential Scan
+## 10. Scan and join algorithms
 
-Определить случаи, когда Seq Scan дешевле index access.
+### 271. Research Sequential Scan
 
-### 272. Исследовать Index Scan
+Determine cases where Seq Scan is cheaper than index access.
 
-Разобрать heap fetches и random access.
+### 272. Research Index Scan
 
-### 273. Исследовать Index Only Scan
+Analyze heap fetches and random access.
 
-Понять роль visibility map и heap fetches.
+### 273. Research Index Only Scan
 
-### 274. Исследовать Bitmap Index Scan
+Understand the role of the visibility map and heap fetches.
 
-Разобрать построение bitmap matching TIDs.
+### 274. Research Bitmap Index Scan
 
-### 275. Исследовать Bitmap Heap Scan
+Analyze construction of a bitmap of matching TIDs.
 
-Проверить exact и lossy heap blocks.
+### 275. Research Bitmap Heap Scan
 
-### 276. Исследовать TID Scan
+Check exact and lossy heap blocks.
 
-Получить tuple по CTID и определить ограничения.
+### 276. Research TID Scan
 
-### 277. Исследовать Subquery Scan
+Retrieve a tuple by CTID and determine the limitations.
 
-Разобрать materialized и inline subqueries.
+### 277. Research Subquery Scan
 
-### 278. Исследовать Function Scan
+Analyze materialized and inline subqueries.
 
-Проверить set-returning function в FROM.
+### 278. Research Function Scan
 
-### 279. Исследовать Values Scan
+Check a set-returning function in FROM.
 
-Разобрать execution inline VALUES.
+### 279. Research Values Scan
 
-### 280. Исследовать Nested Loop Join
+Analyze execution of inline VALUES.
 
-Определить подходящие workloads и parameterized inner scans.
+### 280. Research Nested Loop Join
 
-### 281. Исследовать Hash Join
+Determine suitable workloads and parameterized inner scans.
 
-Разобрать build и probe phases.
+### 281. Research Hash Join
 
-### 282. Исследовать Hash Join batching
+Analyze the build and probe phases.
 
-Проверить spill на disk при недостаточном work_mem.
+### 282. Research Hash Join batching
 
-### 283. Исследовать Merge Join
+Check spilling to disk when work_mem is insufficient.
 
-Понять требования к sorted inputs.
+### 283. Research Merge Join
 
-### 284. Сравнить join algorithms
+Understand requirements for sorted inputs.
 
-Измерить performance при разных cardinalities и indexes.
+### 284. Compare join algorithms
 
-### 285. Исследовать semi join
+Measure performance with different cardinalities and indexes.
 
-Разобрать EXISTS и IN transformations.
+### 285. Research semi join
 
-### 286. Исследовать anti join
+Analyze EXISTS and IN transformations.
 
-Разобрать NOT EXISTS и anti-join semantics.
+### 286. Research anti join
 
-### 287. Исследовать lateral joins
+Analyze NOT EXISTS and anti-join semantics.
 
-Использовать parameterized subquery для каждой outer row.
+### 287. Research lateral joins
 
-### 288. Исследовать join removal
+Use a parameterized subquery for each outer row.
 
-Проверить удаление ненужного join при foreign key и uniqueness.
+### 288. Research join removal
 
-### 289. Исследовать partition-wise join
+Check removal of an unnecessary join with foreign keys and uniqueness.
 
-Сравнить joins partitioned tables.
+### 289. Research partition-wise join
 
-### 290. Исследовать parallel hash join
+Compare joins of partitioned tables.
 
-Проверить shared hash table между workers.
+### 290. Research parallel hash join
 
-### 291. Отключить отдельные plan types
+Check a shared hash table between workers.
 
-Использовать `enable_seqscan`, `enable_hashjoin` и другие settings для экспериментов.
+### 291. Disable individual plan types
 
-### 292. Не использовать planner toggles как production fix
+Use `enable_seqscan`, `enable_hashjoin`, and other settings for experiments.
 
-Документировать их роль только для diagnostics и controlled tuning.
+### 292. Do not use planner toggles as a production fix
 
-### 293. Исследовать materialization
+Document their role only for diagnostics and controlled tuning.
 
-Проверить Materialize plan node и повторное чтение inner result.
+### 293. Research materialization
 
-### 294. Исследовать Memoize
+Check the Materialize plan node and repeated reading of the inner result.
 
-Проверить caching parameterized scan results.
+### 294. Research Memoize
 
-### 295. Создать decision matrix joins
+Check caching of parameterized scan results.
 
-Зафиксировать условия выбора Nested Loop, Hash Join и Merge Join.
+### 295. Create a join decision matrix
 
-## 11. Sorting, aggregation и parallel execution
+Record conditions for choosing Nested Loop, Hash Join, and Merge Join.
 
-### 296. Исследовать Sort node
+## 11. Sorting, aggregation, and parallel execution
 
-Разобрать quicksort, top-N heapsort и external merge.
+### 296. Research the Sort node
 
-### 297. Исследовать sort spill
+Analyze quicksort, top-N heapsort, and external merge.
 
-Проверить temporary files при недостаточном work_mem.
+### 297. Research sort spill
 
-### 298. Исследовать incremental sort
+Check temporary files when work_mem is insufficient.
 
-Использовать частично отсортированный input.
+### 298. Research incremental sort
 
-### 299. Исследовать top-N sorting
+Use partially sorted input.
 
-Сравнить ORDER BY с LIMIT и без LIMIT.
+### 299. Research top-N sorting
 
-### 300. Исследовать HashAggregate
+Compare ORDER BY with and without LIMIT.
 
-Разобрать hash table grouping.
+### 300. Research HashAggregate
 
-### 301. Исследовать GroupAggregate
+Analyze hash-table grouping.
 
-Использовать sorted input для aggregation.
+### 301. Research GroupAggregate
 
-### 302. Исследовать MixedAggregate
+Use sorted input for aggregation.
 
-Проверить mixed strategy для grouping sets.
+### 302. Research MixedAggregate
 
-### 303. Исследовать aggregate spill
+Check a mixed strategy for grouping sets.
 
-Проверить batching при недостаточном work_mem.
+### 303. Research aggregate spill
 
-### 304. Исследовать DISTINCT
+Check batching when work_mem is insufficient.
 
-Сравнить Sort + Unique и HashAggregate.
+### 304. Research DISTINCT
 
-### 305. Исследовать window functions
+Compare Sort + Unique and HashAggregate.
 
-Разобрать WindowAgg и sorting requirements.
+### 305. Research window functions
 
-### 306. Исследовать GROUPING SETS
+Analyze WindowAgg and sorting requirements.
 
-Реализовать несколько уровней aggregation одним запросом.
+### 306. Research GROUPING SETS
 
-### 307. Исследовать CTE inlining
+Implement multiple aggregation levels with one query.
 
-Сравнить обычный CTE и `MATERIALIZED`.
+### 307. Research CTE inlining
 
-### 308. Исследовать NOT MATERIALIZED
+Compare a regular CTE and `MATERIALIZED`.
 
-Позволить planner встроить CTE в основной query.
+### 308. Research NOT MATERIALIZED
 
-### 309. Исследовать recursive CTE
+Allow the planner to inline the CTE into the main query.
 
-Разобрать Recursive Union и working table.
+### 309. Research recursive CTE
 
-### 310. Исследовать parallel query
+Analyze Recursive Union and the working table.
 
-Определить parallel-safe operations и planner thresholds.
+### 310. Research parallel query
 
-### 311. Исследовать Gather
+Determine parallel-safe operations and planner thresholds.
 
-Разобрать сбор tuples от parallel workers.
+### 311. Research Gather
 
-### 312. Исследовать Gather Merge
+Analyze collection of tuples from parallel workers.
 
-Сохранить sorted order от workers.
+### 312. Research Gather Merge
 
-### 313. Настроить max_parallel_workers_per_gather
+Preserve sorted order from workers.
 
-Проверить масштабирование одного query.
+### 313. Configure max_parallel_workers_per_gather
 
-### 314. Исследовать parallel setup cost
+Check scaling of one query.
 
-Понять, почему маленькие queries не используют parallelism.
+### 314. Research parallel setup cost
 
-### 315. Исследовать parallel tuple cost
+Understand why small queries do not use parallelism.
 
-Проверить cost передачи tuples leader process.
+### 315. Research parallel tuple cost
 
-### 316. Исследовать parallel sequential scan
+Check the cost of transferring tuples to the leader process.
 
-Измерить large-table scan с разным числом workers.
+### 316. Research parallel sequential scan
 
-### 317. Исследовать parallel index scan
+Measure a large-table scan with different numbers of workers.
 
-Проверить поддерживаемые index access methods.
+### 317. Research parallel index scan
 
-### 318. Исследовать parallel aggregate
+Check supported index access methods.
 
-Разобрать partial и finalize aggregation.
+### 318. Research parallel aggregate
 
-### 319. Исследовать JIT compilation
+Analyze partial and finalize aggregation.
 
-Определить compilation, optimization и expression execution phases.
+### 319. Research JIT compilation
 
-### 320. Измерить JIT overhead
+Determine compilation, optimization, and expression-execution phases.
 
-Сравнить короткие и CPU-intensive queries.
+### 320. Measure JIT overhead
 
-## 12. EXPLAIN и диагностика запросов
+Compare short and CPU-intensive queries.
 
-### 321. Использовать EXPLAIN
+## 12. EXPLAIN and query diagnostics
 
-Читать plan tree без выполнения statement.
+### 321. Use EXPLAIN
 
-### 322. Использовать EXPLAIN ANALYZE
+Read the plan tree without executing the statement.
 
-Сравнивать estimates и фактическое выполнение.
+### 322. Use EXPLAIN ANALYZE
 
-### 323. Использовать BUFFERS
+Compare estimates and actual execution.
 
-Измерять shared hit, read, dirtied и written blocks.
+### 323. Use BUFFERS
 
-### 324. Использовать WAL
+Measure shared hit, read, dirtied, and written blocks.
 
-Измерять WAL records, full-page images и bytes.
+### 324. Use WAL
 
-### 325. Использовать TIMING
+Measure WAL records, full-page images, and bytes.
 
-Определить overhead per-node timing.
+### 325. Use TIMING
 
-### 326. Использовать SUMMARY
+Determine per-node timing overhead.
 
-Получать planning и execution time.
+### 326. Use SUMMARY
 
-### 327. Использовать SETTINGS
+Retrieve planning and execution time.
 
-Фиксировать planner settings, влияющие на plan.
+### 327. Use SETTINGS
 
-### 328. Использовать VERBOSE
+Record planner settings affecting the plan.
 
-Просматривать output columns и qualified object names.
+### 328. Use VERBOSE
 
-### 329. Использовать FORMAT JSON
+View output columns and qualified object names.
 
-Получать machine-readable query plan.
+### 329. Use FORMAT JSON
 
-### 330. Создать parser EXPLAIN JSON
+Retrieve a machine-readable query plan.
 
-Извлекать nodes, estimates, timings и buffer metrics.
+### 330. Create an EXPLAIN JSON parser
 
-### 331. Анализировать loops
+Extract nodes, estimates, timings, and buffer metrics.
 
-Правильно учитывать repeated execution plan node.
+### 331. Analyze loops
 
-### 332. Анализировать rows removed by filter
+Correctly account for repeated execution of a plan node.
 
-Определять wasted work после scan.
+### 332. Analyze rows removed by filter
 
-### 333. Анализировать heap fetches
+Determine wasted work after a scan.
 
-Оценивать эффективность Index Only Scan.
+### 333. Analyze heap fetches
 
-### 334. Анализировать lossy bitmap blocks
+Evaluate Index Only Scan efficiency.
 
-Определять недостаток work_mem и recheck overhead.
+### 334. Analyze lossy bitmap blocks
 
-### 335. Анализировать sort method
+Determine insufficient work_mem and recheck overhead.
 
-Различать in-memory и external sort.
+### 335. Analyze the sort method
 
-### 336. Анализировать hash batches
+Distinguish in-memory and external sorting.
 
-Определять spill Hash Join или HashAggregate.
+### 336. Analyze hash batches
 
-### 337. Анализировать planning time
+Determine a spilling Hash Join or HashAggregate.
 
-Исследовать сложные join graphs и partitioned schemas.
+### 337. Analyze planning time
 
-### 338. Анализировать execution time
+Research complex join graphs and partitioned schemas.
 
-Отделять executor cost от client transfer.
+### 338. Analyze execution time
 
-### 339. Сравнивать cold и warm plans
+Separate executor cost from client transfer.
 
-Запускать controlled experiments с cache state.
+### 339. Compare cold and warm plans
 
-### 340. Создать checklist анализа query plan
+Run controlled experiments with cache state.
 
-Зафиксировать последовательность проверки estimates, scans, joins, memory и I/O.
+### 340. Create a query-plan analysis checklist
 
-## 13. Transactions и MVCC
+Record the sequence for checking estimates, scans, joins, memory, and I/O.
 
-### 341. Исследовать transaction boundaries
 
-Сравнить implicit transactions, explicit BEGIN и autocommit.
+## 13. Transactions and MVCC
 
-### 342. Исследовать transaction IDs
+### 341. Research transaction boundaries
 
-Разобрать XID allocation и visibility.
+Compare implicit transactions, explicit BEGIN, and autocommit.
 
-### 343. Исследовать snapshots
+### 342. Research transaction IDs
 
-Определить visible committed, in-progress и aborted transactions.
+Analyze XID allocation and visibility.
 
-### 344. Исследовать xmin и xmax
+### 343. Research snapshots
 
-Проверить tuple visibility при INSERT, UPDATE и DELETE.
+Determine visible committed, in-progress, and aborted transactions.
 
-### 345. Исследовать command IDs
+### 344. Research xmin and xmax
 
-Разобрать видимость изменений внутри одной transaction.
+Check tuple visibility for INSERT, UPDATE, and DELETE.
 
-### 346. Исследовать tuple version chains
+### 345. Research command IDs
 
-Проследить HOT и non-HOT update versions.
+Analyze visibility of changes within one transaction.
 
-### 347. Исследовать UPDATE как INSERT+DELETE
+### 346. Research tuple version chains
 
-Проверить создание новой tuple version.
+Trace HOT and non-HOT update versions.
 
-### 348. Исследовать DELETE
+### 347. Research UPDATE as INSERT+DELETE
 
-Показать, что tuple физически остаётся до VACUUM.
+Check creation of a new tuple version.
 
-### 349. Исследовать transaction commit
+### 348. Research DELETE
 
-Разобрать commit record в WAL и visibility.
+Show that a tuple physically remains until VACUUM.
 
-### 350. Исследовать rollback
+### 349. Research transaction commit
 
-Проверить сохранение aborted tuple versions до cleanup.
+Analyze the commit record in WAL and visibility.
 
-### 351. Исследовать subtransactions
+### 350. Research rollback
 
-Использовать SAVEPOINT и ROLLBACK TO SAVEPOINT.
+Check preservation of aborted tuple versions until cleanup.
 
-### 352. Исследовать subtransaction overhead
+### 351. Research subtransactions
 
-Проверить большое количество savepoints.
+Use SAVEPOINT and ROLLBACK TO SAVEPOINT.
 
-### 353. Исследовать transaction snapshots в READ COMMITTED
+### 352. Research subtransaction overhead
 
-Получать новый snapshot для каждого statement.
+Check a large number of savepoints.
 
-### 354. Исследовать snapshot в REPEATABLE READ
+### 353. Research transaction snapshots in READ COMMITTED
 
-Сохранять единый snapshot transaction.
+Obtain a new snapshot for each statement.
 
-### 355. Исследовать read-only transactions
+### 354. Research the snapshot in REPEATABLE READ
 
-Ограничить mutations и использовать optimization opportunities.
+Preserve one transaction snapshot.
 
-### 356. Исследовать deferrable transactions
+### 355. Research read-only transactions
 
-Использовать safe snapshot для serializable read-only workloads.
+Restrict mutations and use optimization opportunities.
 
-### 357. Исследовать long-running transactions
+### 356. Research deferrable transactions
 
-Показать удержание dead tuples и влияние на vacuum.
+Use a safe snapshot for serializable read-only workloads.
 
-### 358. Исследовать idle in transaction
+### 357. Research long-running transactions
 
-Проверить locks, snapshots и bloat risk.
+Show retention of dead tuples and the impact on vacuum.
 
-### 359. Настроить idle_in_transaction_session_timeout
+### 358. Research idle in transaction
 
-Автоматически завершать опасные idle transactions.
+Check locks, snapshots, and bloat risk.
 
-### 360. Настроить statement_timeout
+### 359. Configure idle_in_transaction_session_timeout
 
-Ограничивать duration statement.
+Automatically terminate dangerous idle transactions.
 
-### 361. Настроить transaction_timeout
+### 360. Configure statement_timeout
 
-Ограничивать общую duration transaction, если поддерживается выбранной версией.
+Limit statement duration.
 
-### 362. Исследовать transaction read/write sets
+### 361. Configure transaction_timeout
 
-Определить конфликтующие operations.
+Limit total transaction duration if supported by the selected version.
 
-### 363. Исследовать atomic counters
+### 362. Research transaction read/write sets
 
-Реализовать безопасный increment одним UPDATE.
+Determine conflicting operations.
 
-### 364. Исследовать check-then-act race
+### 363. Research atomic counters
 
-Показать ошибочность application-side transaction logic без locks или constraints.
+Implement a safe increment with one UPDATE.
 
-### 365. Реализовать transactional outbox
+### 364. Research the check-then-act race
 
-Атомарно сохранить domain state и event record.
+Show why application-side transaction logic is incorrect without locks or constraints.
 
-### 366. Исследовать dual-write problem
+### 365. Implement a transactional outbox
 
-Показать невозможность атомарного commit PostgreSQL и external broker без protocol.
+Atomically store domain state and an event record.
 
-### 367. Реализовать idempotent transaction
+### 366. Research the dual-write problem
 
-Использовать unique business key для повторной команды.
+Show the impossibility of atomically committing PostgreSQL and an external broker without a protocol.
 
-### 368. Исследовать commit latency
+### 367. Implement an idempotent transaction
 
-Измерить влияние synchronous_commit и storage.
+Use a unique business key for a repeated command.
 
-### 369. Исследовать group commit
+### 368. Research commit latency
 
-Проверить совместное flush нескольких transactions.
+Measure the impact of synchronous_commit and storage.
 
-### 370. Документировать MVCC lifecycle
+### 369. Research group commit
 
-Создать diagram tuple versions, snapshots, commit и vacuum.
+Check joint flushing of multiple transactions.
 
-## 14. Isolation levels и anomalies
+### 370. Document the MVCC lifecycle
 
-### 371. Исследовать READ UNCOMMITTED
+Create a diagram of tuple versions, snapshots, commit, and vacuum.
 
-Зафиксировать, что PostgreSQL обрабатывает его как READ COMMITTED.
+## 14. Isolation levels and anomalies
 
-### 372. Исследовать READ COMMITTED
+### 371. Research READ UNCOMMITTED
 
-Проверить statement-level snapshots.
+Record that PostgreSQL treats it as READ COMMITTED.
 
-### 373. Воспроизвести non-repeatable read
+### 372. Research READ COMMITTED
 
-Показать изменение результата между statements.
+Check statement-level snapshots.
 
-### 374. Воспроизвести phantom-like behavior
+### 373. Reproduce a non-repeatable read
 
-Показать появление новых rows между statements.
+Show a result changing between statements.
 
-### 375. Исследовать REPEATABLE READ
+### 374. Reproduce phantom-like behavior
 
-Проверить snapshot isolation semantics PostgreSQL.
+Show new rows appearing between statements.
 
-### 376. Воспроизвести write skew
+### 375. Research REPEATABLE READ
 
-Показать anomaly snapshot isolation.
+Check PostgreSQL snapshot-isolation semantics.
 
-### 377. Исследовать lost update
+### 376. Reproduce write skew
 
-Проверить поведение competing read-modify-write transactions.
+Show a snapshot-isolation anomaly.
 
-### 378. Защититься от lost update
+### 377. Research lost update
 
-Использовать atomic UPDATE, row lock или optimistic version.
+Check the behavior of competing read-modify-write transactions.
 
-### 379. Исследовать SERIALIZABLE
+### 378. Protect against lost update
 
-Разобрать Serializable Snapshot Isolation.
+Use an atomic UPDATE, row lock, or optimistic version.
 
-### 380. Исследовать predicate locks
+### 379. Research SERIALIZABLE
 
-Проверить `pg_locks` для SIReadLock.
+Analyze Serializable Snapshot Isolation.
 
-### 381. Воспроизвести serialization failure
+### 380. Research predicate locks
 
-Создать опасную dependency structure.
+Check `pg_locks` for SIReadLock.
 
-### 382. Реализовать retry SERIALIZABLE transactions
+### 381. Reproduce a serialization failure
 
-Повторять всю transaction после SQLSTATE `40001`.
+Create a dangerous dependency structure.
 
-### 383. Исследовать false-positive serialization failures
+### 382. Implement retries for SERIALIZABLE transactions
 
-Понять conservative nature SSI detection.
+Retry the entire transaction after SQLSTATE `40001`.
 
-### 384. Сравнить isolation levels
+### 383. Research false-positive serialization failures
 
-Зафиксировать anomalies, overhead и use cases.
+Understand the conservative nature of SSI detection.
 
-### 385. Создать isolation test harness
+### 384. Compare isolation levels
 
-Запускать синхронизированные concurrent sessions.
+Record anomalies, overhead, and use cases.
 
-### 386. Исследовать read skew
+### 385. Create an isolation test harness
 
-Проверить inconsistent observations нескольких related rows.
+Run synchronized concurrent sessions.
 
-### 387. Исследовать write skew mitigation
+### 386. Research read skew
 
-Использовать SERIALIZABLE или explicit locking.
+Check inconsistent observations of multiple related rows.
 
-### 388. Исследовать phantom protection
+### 387. Research write-skew mitigation
 
-Сравнить snapshots и predicate locking.
+Use SERIALIZABLE or explicit locking.
 
-### 389. Исследовать uniqueness conflicts
+### 388. Research phantom protection
 
-Проверить behavior concurrent inserts.
+Compare snapshots and predicate locking.
 
-### 390. Исследовать ON CONFLICT под READ COMMITTED
+### 389. Research uniqueness conflicts
 
-Разобрать visibility конфликтующей row.
+Check the behavior of concurrent inserts.
 
-### 391. Исследовать application retries
+### 390. Research ON CONFLICT under READ COMMITTED
 
-Определить retryable SQLSTATE и backoff policy.
+Analyze visibility of the conflicting row.
 
-### 392. Запретить частичный retry transaction
+### 391. Research application retries
 
-Повторять весь unit of work, а не отдельный failed statement.
+Determine retryable SQLSTATE values and a backoff policy.
 
-### 393. Исследовать side effects при retry
+### 392. Prohibit partial transaction retry
 
-Не выполнять irreversible external call внутри retried transaction.
+Retry the entire unit of work rather than an individual failed statement.
 
-### 394. Реализовать optimistic concurrency control
+### 393. Research side effects during retry
 
-Добавить version column и conditional UPDATE.
+Do not perform an irreversible external call inside a retried transaction.
 
-### 395. Реализовать pessimistic concurrency control
+### 394. Implement optimistic concurrency control
 
-Использовать row-level locks.
+Add a version column and conditional UPDATE.
 
-## 15. Locks и deadlocks
+### 395. Implement pessimistic concurrency control
 
-### 396. Исследовать table-level locks
+Use row-level locks.
 
-Разобрать PostgreSQL lock modes и compatibility matrix.
+## 15. Locks and deadlocks
 
-### 397. Исследовать ACCESS SHARE
+### 396. Research table-level locks
 
-Проверить lock обычного SELECT.
+Analyze PostgreSQL lock modes and the compatibility matrix.
 
-### 398. Исследовать ROW EXCLUSIVE
+### 397. Research ACCESS SHARE
 
-Проверить locks INSERT, UPDATE и DELETE.
+Check the lock of a regular SELECT.
 
-### 399. Исследовать SHARE UPDATE EXCLUSIVE
+### 398. Research ROW EXCLUSIVE
 
-Определить operations autovacuum и concurrent index build.
+Check locks of INSERT, UPDATE, and DELETE.
 
-### 400. Исследовать ACCESS EXCLUSIVE
+### 399. Research SHARE UPDATE EXCLUSIVE
 
-Проверить DDL, блокирующий все accesses.
+Determine operations of autovacuum and concurrent index build.
 
-### 401. Исследовать row-level locks
+### 400. Research ACCESS EXCLUSIVE
 
-Разобрать FOR UPDATE, NO KEY UPDATE, SHARE и KEY SHARE.
+Check DDL that blocks all access.
 
-### 402. Использовать SELECT FOR UPDATE
+### 401. Research row-level locks
 
-Заблокировать rows перед mutation.
+Analyze FOR UPDATE, NO KEY UPDATE, SHARE, and KEY SHARE.
 
-### 403. Использовать FOR NO KEY UPDATE
+### 402. Use SELECT FOR UPDATE
 
-Ограничить конфликтность при неизменяемом key.
+Lock rows before mutation.
 
-### 404. Использовать FOR SHARE
+### 403. Use FOR NO KEY UPDATE
 
-Разобрать shared row lock semantics.
+Reduce conflicts when the key is unchanged.
 
-### 405. Использовать FOR KEY SHARE
+### 404. Use FOR SHARE
 
-Защитить referenced key от delete или key update.
+Analyze shared row-lock semantics.
 
-### 406. Исследовать NOWAIT
+### 405. Use FOR KEY SHARE
 
-Немедленно завершать operation при невозможности получить lock.
+Protect a referenced key from deletion or key update.
 
-### 407. Исследовать SKIP LOCKED
+### 406. Research NOWAIT
 
-Реализовать конкурентную обработку job queue.
+Immediately terminate the operation when a lock cannot be acquired.
 
-### 408. Исследовать lock queues
+### 407. Research SKIP LOCKED
 
-Проверить порядок ожидания и влияние long holder.
+Implement concurrent processing of a job queue.
 
-### 409. Исследовать lock_timeout
+### 408. Research lock queues
 
-Ограничивать ожидание lock.
+Check wait order and the impact of a long holder.
 
-### 410. Исследовать fast-path locks
+### 409. Research lock_timeout
 
-Разобрать оптимизацию часто используемых relation locks.
+Limit lock wait time.
 
-### 411. Исследовать heavyweight locks
+### 410. Research fast-path locks
 
-Проверить representation в shared lock table.
+Analyze optimization of frequently used relation locks.
 
-### 412. Исследовать lightweight locks
+### 411. Research heavyweight locks
 
-Разобрать внутренние synchronization primitives PostgreSQL.
+Check representation in the shared lock table.
 
-### 413. Исследовать buffer pins
+### 412. Research lightweight locks
 
-Понять их отличие от SQL-visible locks.
+Analyze PostgreSQL internal synchronization primitives.
 
-### 414. Исследовать advisory locks
+### 413. Research buffer pins
 
-Использовать session-level и transaction-level locks.
+Understand their difference from SQL-visible locks.
 
-### 415. Создать advisory lock namespace
+### 414. Research advisory locks
 
-Исключить collisions между различными business resources.
+Use session-level and transaction-level locks.
 
-### 416. Сравнить advisory и row locks
+### 415. Create an advisory-lock namespace
 
-Зафиксировать database enforcement и application responsibility.
+Prevent collisions between different business resources.
 
-### 417. Воспроизвести deadlock
+### 416. Compare advisory and row locks
 
-Создать две transactions с обратным порядком locks.
+Record database enforcement and application responsibility.
 
-### 418. Исследовать deadlock detection
+### 417. Reproduce a deadlock
 
-Проверить влияние `deadlock_timeout`.
+Create two transactions with reverse lock order.
 
-### 419. Анализировать deadlock logs
+### 418. Research deadlock detection
 
-Определять involved transactions, statements и objects.
+Check the impact of `deadlock_timeout`.
 
-### 420. Устранить deadlock lock ordering
+### 419. Analyze deadlock logs
 
-Зафиксировать единый порядок захвата resources.
+Determine involved transactions, statements, and objects.
 
-### 421. Устранить deadlock сокращением transaction
+### 420. Eliminate deadlocks through lock ordering
 
-Минимизировать время удержания locks.
+Record a consistent order for acquiring resources.
 
-### 422. Реализовать deadlock retry
+### 421. Eliminate deadlocks by shortening the transaction
 
-Повторять transaction после SQLSTATE `40P01`.
+Minimize lock-holding time.
 
-### 423. Исследовать foreign key locking
+### 422. Implement deadlock retry
 
-Проверить row locks при insert referencing row и delete referenced row.
+Retry the transaction after SQLSTATE `40P01`.
 
-### 424. Исследовать DDL locking
+### 423. Research foreign-key locking
 
-Измерить блокировки ALTER TABLE operations.
+Check row locks when inserting a referencing row and deleting a referenced row.
 
-### 425. Создать lock diagnostics query
+### 424. Research DDL locking
 
-Показывать blockers, waiters, queries и transaction age.
+Measure locks of ALTER TABLE operations.
 
-## 16. HOT updates, VACUUM и bloat
+### 425. Create a lock diagnostics query
 
-### 426. Исследовать HOT update
+Show blockers, waiters, queries, and transaction age.
 
-Определить условия heap-only tuple update.
+## 16. HOT updates, VACUUM, and bloat
 
-### 427. Проверить HOT eligibility
+### 426. Research HOT update
 
-Обновлять non-indexed column при наличии места на page.
+Determine conditions for a heap-only tuple update.
 
-### 428. Проверить HOT prevention
+### 427. Check HOT eligibility
 
-Обновлять indexed column или page без свободного места.
+Update a non-indexed column when space is available on the page.
 
-### 429. Измерить HOT statistics
+### 428. Check HOT prevention
 
-Использовать `n_tup_hot_upd` и related counters.
+Update an indexed column or a page without free space.
 
-### 430. Исследовать pruning
+### 429. Measure HOT statistics
 
-Проверить очистку tuple chains во время page access.
+Use `n_tup_hot_upd` and related counters.
 
-### 431. Исследовать VACUUM
+### 430. Research pruning
 
-Разобрать cleanup heap, indexes, FSM и visibility map.
+Check cleanup of tuple chains during page access.
 
-### 432. Исследовать VACUUM ANALYZE
+### 431. Research VACUUM
 
-Обновить statistics вместе с cleanup.
+Analyze cleanup of the heap, indexes, FSM, and visibility map.
 
-### 433. Исследовать VACUUM FULL
+### 432. Research VACUUM ANALYZE
 
-Проверить table rewrite, disk usage и ACCESS EXCLUSIVE lock.
+Update statistics together with cleanup.
 
-### 434. Исследовать lazy vacuum
+### 433. Research VACUUM FULL
 
-Разобрать phases обычного VACUUM.
+Check table rewrite, disk usage, and ACCESS EXCLUSIVE lock.
 
-### 435. Исследовать autovacuum launcher
+### 434. Research lazy vacuum
 
-Понять распределение работы между workers.
+Analyze the phases of regular VACUUM.
 
-### 436. Исследовать autovacuum thresholds
+### 435. Research the autovacuum launcher
 
-Разобрать threshold и scale factor.
+Understand work distribution among workers.
 
-### 437. Настроить per-table autovacuum
+### 436. Research autovacuum thresholds
 
-Подобрать параметры для high-churn table.
+Analyze the threshold and scale factor.
 
-### 438. Исследовать autovacuum_vacuum_cost_limit
+### 437. Configure per-table autovacuum
 
-Управлять aggressiveness background vacuum.
+Select parameters for a high-churn table.
 
-### 439. Исследовать autovacuum_naptime
+### 438. Research autovacuum_vacuum_cost_limit
 
-Проверить частоту поиска нуждающихся tables.
+Control background-vacuum aggressiveness.
 
-### 440. Исследовать vacuum memory
+### 439. Research autovacuum_naptime
 
-Разобрать maintenance_work_mem и autovacuum_work_mem.
+Check how often tables requiring work are searched.
 
-### 441. Исследовать vacuum progress
+### 440. Research vacuum memory
 
-Использовать `pg_stat_progress_vacuum`.
+Analyze maintenance_work_mem and autovacuum_work_mem.
 
-### 442. Исследовать analyze progress
+### 441. Research vacuum progress
 
-Проверить доступные progress views выбранной версии.
+Use `pg_stat_progress_vacuum`.
 
-### 443. Исследовать dead tuple accumulation
+### 442. Research analyze progress
 
-Создать update/delete workload и измерить growth.
+Check progress views available in the selected version.
 
-### 444. Исследовать table bloat
+### 443. Research dead-tuple accumulation
 
-Сравнить logical data size и physical relation size.
+Create an update/delete workload and measure growth.
 
-### 445. Исследовать index bloat
+### 444. Research table bloat
 
-Измерить unused space и duplicate index entries.
+Compare logical data size and physical relation size.
 
-### 446. Использовать pgstattuple
+### 445. Research index bloat
 
-Получить точную оценку dead tuples и free space.
+Measure unused space and duplicate index entries.
 
-### 447. Сравнить approximate bloat queries
+### 446. Use pgstattuple
 
-Оценить ограничения catalog-based estimates.
+Obtain an exact estimate of dead tuples and free space.
 
-### 448. Исследовать freeze
+### 447. Compare approximate bloat queries
 
-Разобрать frozen XIDs и tuple visibility.
+Evaluate limitations of catalog-based estimates.
 
-### 449. Исследовать transaction ID wraparound
+### 448. Research freeze
 
-Понять критичность anti-wraparound vacuum.
+Analyze frozen XIDs and tuple visibility.
 
-### 450. Проверить relfrozenxid
+### 449. Research transaction ID wraparound
 
-Найти oldest unfrozen relations.
+Understand the critical importance of anti-wraparound vacuum.
 
-### 451. Исследовать vacuum_freeze_min_age
+### 450. Check relfrozenxid
 
-Определить момент ранней freeze.
+Find the oldest unfrozen relations.
 
-### 452. Исследовать vacuum_freeze_table_age
+### 451. Research vacuum_freeze_min_age
 
-Настроить aggressive freeze scan.
+Determine the point of early freezing.
 
-### 453. Исследовать autovacuum_freeze_max_age
+### 452. Research vacuum_freeze_table_age
 
-Понять emergency autovacuum behavior.
+Configure an aggressive freeze scan.
 
-### 454. Исследовать multixact IDs
+### 453. Research autovacuum_freeze_max_age
 
-Разобрать хранение shared row locks.
+Understand emergency autovacuum behavior.
 
-### 455. Исследовать multixact wraparound
+### 454. Research multixact IDs
 
-Проверить monitoring requirements.
+Analyze storage of shared row locks.
 
-### 456. Исследовать visibility map и index-only scan
+### 455. Research multixact wraparound
 
-Показать ухудшение index-only scan при churn.
+Check monitoring requirements.
 
-### 457. Исследовать vacuum truncation
+### 456. Research the visibility map and index-only scan
 
-Проверить возврат пустых end pages operating system.
+Show degradation of index-only scans under churn.
 
-### 458. Исследовать replication slots и vacuum
+### 457. Research vacuum truncation
 
-Показать удержание dead tuples старым xmin.
+Check returning empty end pages to the operating system.
 
-### 459. Исследовать long snapshot impact
+### 458. Research replication slots and vacuum
 
-Связать old snapshot и невозможность cleanup.
+Show retention of dead tuples by an old xmin.
 
-### 460. Создать vacuum tuning runbook
+### 459. Research the impact of a long snapshot
 
-Зафиксировать диагностику dead tuples, autovacuum lag и wraparound risk.
+Relate an old snapshot to inability to clean up.
 
-## 17. WAL, checkpoints и crash recovery
+### 460. Create a vacuum-tuning runbook
 
-### 461. Исследовать Write-Ahead Logging
+Record diagnostics for dead tuples, autovacuum lag, and wraparound risk.
 
-Разобрать правило записи WAL до data pages.
 
-### 462. Исследовать WAL records
+## 17. WAL, checkpoints, and crash recovery
 
-Проверить WAL generation для INSERT, UPDATE, DELETE и index changes.
+### 461. Research Write-Ahead Logging
 
-### 463. Исследовать WAL segments
+Analyze the rule of writing WAL before data pages.
 
-Разобрать naming, size и recycling.
+### 462. Research WAL records
 
-### 464. Исследовать WAL buffers
+Check WAL generation for INSERT, UPDATE, DELETE, and index changes.
 
-Понять промежуточное хранение records перед flush.
+### 463. Research WAL segments
 
-### 465. Исследовать LSN
+Analyze naming, size, and recycling.
 
-Использовать Log Sequence Number для positions и replication.
+### 464. Research WAL buffers
 
-### 466. Исследовать full-page writes
+Understand intermediate storage of records before flush.
 
-Понять защиту от torn pages после checkpoint.
+### 465. Research LSN
 
-### 467. Измерить full-page image overhead
+Use the Log Sequence Number for positions and replication.
 
-Сравнить WAL volume сразу после checkpoint и позже.
+### 466. Research full-page writes
 
-### 468. Исследовать wal_compression
+Understand protection against torn pages after a checkpoint.
 
-Измерить размер WAL и CPU overhead.
+### 467. Measure full-page image overhead
 
-### 469. Исследовать synchronous_commit
+Compare WAL volume immediately after a checkpoint and later.
 
-Сравнить on, off и remote durability modes.
+### 468. Research wal_compression
 
-### 470. Исследовать fsync
+Measure WAL size and CPU overhead.
 
-Понять его влияние на durability и невозможность безопасного отключения в production.
+### 469. Research synchronous_commit
 
-### 471. Исследовать wal_sync_method
+Compare on, off, and remote durability modes.
 
-Сравнить platform-specific flush methods.
+### 470. Research fsync
 
-### 472. Исследовать checkpoints
+Understand its impact on durability and the impossibility of safely disabling it in production.
 
-Разобрать dirty buffer flushing и recovery distance.
+### 471. Research wal_sync_method
 
-### 473. Настроить checkpoint_timeout
+Compare platform-specific flush methods.
 
-Проверить frequency checkpoints.
+### 472. Research checkpoints
 
-### 474. Настроить max_wal_size
+Analyze dirty-buffer flushing and recovery distance.
 
-Управлять checkpoint pressure.
+### 473. Configure checkpoint_timeout
 
-### 475. Настроить checkpoint_completion_target
+Check checkpoint frequency.
 
-Распределять I/O checkpoint во времени.
+### 474. Configure max_wal_size
 
-### 476. Исследовать checkpoint spikes
+Manage checkpoint pressure.
 
-Наблюдать latency и write throughput.
+### 475. Configure checkpoint_completion_target
 
-### 477. Исследовать background writer
+Distribute checkpoint I/O over time.
 
-Разобрать очистку dirty buffers независимо от checkpoints.
+### 476. Research checkpoint spikes
 
-### 478. Исследовать WAL writer
+Observe latency and write throughput.
 
-Понять background WAL flush.
+### 477. Research the background writer
 
-### 479. Исследовать crash recovery
+Analyze cleaning of dirty buffers independently of checkpoints.
 
-Прервать PostgreSQL process и проверить replay WAL.
+### 478. Research the WAL writer
 
-### 480. Анализировать recovery logs
+Understand background WAL flush.
 
-Проследить redo start, end и consistency point.
+### 479. Research crash recovery
 
-### 481. Исследовать unlogged table recovery
+Terminate the PostgreSQL process and check WAL replay.
 
-Проверить очистку unlogged relation после crash.
+### 480. Analyze recovery logs
 
-### 482. Исследовать WAL archiving
+Trace redo start, end, and consistency point.
 
-Настроить `archive_mode` и `archive_command`.
+### 481. Research unlogged-table recovery
 
-### 483. Проверить archive_command idempotency
+Check cleanup of an unlogged relation after a crash.
 
-Не считать повторный вызов ошибкой при уже сохранённом segment.
+### 482. Research WAL archiving
 
-### 484. Исследовать archive backlog
+Configure `archive_mode` and `archive_command`.
 
-Мониторить неархивированные WAL segments.
+### 483. Check archive_command idempotency
 
-### 485. Настроить WAL retention
+Do not treat a repeated call as an error when the segment has already been stored.
 
-Учитывать replication slots, archive и standby requirements.
+### 484. Research archive backlog
 
-### 486. Исследовать wal_level
+Monitor unarchived WAL segments.
 
-Сравнить minimal, replica и logical.
+### 485. Configure WAL retention
 
-### 487. Исследовать commit timestamp
+Account for replication slots, archive, and standby requirements.
 
-Включить и проверить tracking commit time при необходимости.
+### 486. Research wal_level
 
-### 488. Исследовать WAL inspection
+Compare minimal, replica, and logical.
 
-Использовать `pg_waldump` для анализа records.
+### 487. Research commit timestamp
 
-### 489. Измерить WAL amplification
+Enable and check commit-time tracking when necessary.
 
-Сравнить workload с разным количеством indexes.
+### 488. Research WAL inspection
 
-### 490. Документировать durability trade-offs
+Use `pg_waldump` to analyze records.
 
-Зафиксировать влияние WAL, checkpoints и commit settings.
+### 489. Measure WAL amplification
 
-## 18. Backup и Point-in-Time Recovery
+Compare workloads with different numbers of indexes.
 
-### 491. Исследовать logical backup
+### 490. Document durability trade-offs
 
-Сравнить `pg_dump`, `pg_dumpall` и selective export.
+Record the impact of WAL, checkpoints, and commit settings.
 
-### 492. Создать custom-format backup
+## 18. Backup and Point-in-Time Recovery
 
-Использовать parallel restore и выборочную загрузку objects.
+### 491. Research logical backup
 
-### 493. Исследовать physical backup
+Compare `pg_dump`, `pg_dumpall`, and selective export.
 
-Использовать `pg_basebackup`.
+### 492. Create a custom-format backup
 
-### 494. Настроить backup manifest
+Use parallel restore and selective loading of objects.
 
-Проверять целостность physical backup.
+### 493. Research physical backup
 
-### 495. Настроить continuous archiving
+Use `pg_basebackup`.
 
-Сохранять WAL для PITR.
+### 494. Configure a backup manifest
 
-### 496. Выполнить Point-in-Time Recovery
+Check physical-backup integrity.
 
-Восстановить cluster на момент до ошибочного DELETE.
+### 495. Configure continuous archiving
 
-### 497. Исследовать recovery targets
+Store WAL for PITR.
 
-Использовать timestamp, transaction ID, LSN и named restore point.
+### 496. Perform Point-in-Time Recovery
 
-### 498. Создать restore point
+Restore the cluster to a moment before an erroneous DELETE.
 
-Зафиксировать marker перед опасной migration.
+### 497. Research recovery targets
 
-### 499. Проверить backup restore
+Use a timestamp, transaction ID, LSN, and named restore point.
 
-Не считать backup валидным без регулярного восстановления.
+### 498. Create a restore point
 
-### 500. Измерить Recovery Point Objective
+Record a marker before a dangerous migration.
 
-Определить возможную потерю данных.
+### 499. Check backup restore
 
-### 501. Измерить Recovery Time Objective
+Do not consider a backup valid without regular restoration.
 
-Определить длительность восстановления.
+### 500. Measure Recovery Point Objective
 
-### 502. Исследовать parallel pg_restore
+Determine possible data loss.
 
-Подобрать число jobs и влияние indexes и constraints.
+### 501. Measure Recovery Time Objective
 
-### 503. Исследовать backup consistency
+Determine restoration duration.
 
-Понять snapshots logical backup и WAL consistency physical backup.
+### 502. Research parallel pg_restore
 
-### 504. Разделить schema и data restore
+Select the number of jobs and assess the impact of indexes and constraints.
 
-Восстанавливать pre-data, data и post-data sections.
+### 503. Research backup consistency
 
-### 505. Исследовать large-object backup
+Understand snapshots for logical backup and WAL consistency for physical backup.
 
-Проверить восстановление large objects.
+### 504. Separate schema and data restore
 
-### 506. Исследовать role и privilege backup
+Restore pre-data, data, and post-data sections.
 
-Сохранить global objects отдельно.
+### 505. Research large-object backup
 
-### 507. Создать backup retention policy
+Check restoration of large objects.
 
-Определить full backups, WAL и expiration.
+### 506. Research role and privilege backup
 
-### 508. Шифровать backups
+Store global objects separately.
 
-Защитить data at rest и keys.
+### 507. Create a backup retention policy
 
-### 509. Создать backup monitoring
+Define full backups, WAL, and expiration.
 
-Проверять age, size, completion и restore tests.
+### 508. Encrypt backups
 
-### 510. Создать disaster recovery runbook
+Protect data at rest and keys.
 
-Документировать полное восстановление PostgreSQL cluster.
+### 509. Create backup monitoring
 
-## 19. Migrations и zero-downtime schema changes
+Check age, size, completion, and restore tests.
 
-### 511. Создать migration framework
+### 510. Create a disaster-recovery runbook
 
-Хранить versioned SQL migrations и immutable applied history.
+Document complete restoration of a PostgreSQL cluster.
 
-### 512. Разделить transactional и non-transactional migrations
+## 19. Migrations and zero-downtime schema changes
 
-Учитывать `CREATE INDEX CONCURRENTLY` и другие operations.
+### 511. Create a migration framework
 
-### 513. Реализовать migration locking
+Store versioned SQL migrations and immutable applied history.
 
-Не запускать две migration processes одновременно.
+### 512. Separate transactional and non-transactional migrations
 
-### 514. Реализовать migration checksums
+Account for `CREATE INDEX CONCURRENTLY` and other operations.
 
-Обнаруживать изменение уже применённых files.
+### 513. Implement migration locking
 
-### 515. Создать migration status command
+Do not run two migration processes simultaneously.
 
-Показывать applied, pending и divergent versions.
+### 514. Implement migration checksums
 
-### 516. Исследовать ALTER TABLE locks
+Detect changes to already applied files.
 
-Измерить lock mode каждой schema operation.
+### 515. Create a migration status command
 
-### 517. Добавить nullable column
+Show applied, pending, and divergent versions.
 
-Проверить metadata-only operation.
+### 516. Research ALTER TABLE locks
 
-### 518. Добавить column с constant default
+Measure the lock mode of each schema operation.
 
-Проверить fast default behavior современных версий PostgreSQL.
+### 517. Add a nullable column
 
-### 519. Добавить volatile default
+Check a metadata-only operation.
 
-Определить, вызывает ли operation table rewrite.
+### 518. Add a column with a constant default
 
-### 520. Добавить NOT NULL безопасно
+Check fast-default behavior in modern PostgreSQL versions.
 
-Использовать validated check constraint и metadata transition.
+### 519. Add a volatile default
 
-### 521. Добавить foreign key безопасно
+Determine whether the operation causes a table rewrite.
 
-Использовать `NOT VALID` и отдельный `VALIDATE CONSTRAINT`.
+### 520. Add NOT NULL safely
 
-### 522. Создать index concurrently
+Use a validated check constraint and metadata transition.
 
-Не блокировать обычные writes.
+### 521. Add a foreign key safely
 
-### 523. Удалить index concurrently
+Use `NOT VALID` and a separate `VALIDATE CONSTRAINT`.
 
-Минимизировать blocking impact.
+### 522. Create an index concurrently
 
-### 524. Переименовать column
+Do not block ordinary writes.
 
-Оценить compatibility application versions.
+### 523. Drop an index concurrently
 
-### 525. Выполнить expand-contract migration
+Minimize blocking impact.
 
-Сначала добавить новую schema, затем перевести код и удалить старую.
+### 524. Rename a column
 
-### 526. Реализовать dual write
+Evaluate compatibility of application versions.
 
-Временно записывать old и new representations.
+### 525. Perform an expand-contract migration
 
-### 527. Реализовать backfill
+First add the new schema, then migrate the code and remove the old schema.
 
-Обновлять rows небольшими batches.
+### 526. Implement dual write
 
-### 528. Добавить resumable backfill
+Temporarily write old and new representations.
 
-Сохранять progress и безопасно продолжать после failure.
+### 527. Implement backfill
 
-### 529. Добавить throttling backfill
+Update rows in small batches.
 
-Ограничивать load по latency, replication lag и lock pressure.
+### 528. Add resumable backfill
 
-### 530. Использовать SKIP LOCKED для backfill
+Store progress and safely continue after failure.
 
-Распределять batches между несколькими workers.
+### 529. Add backfill throttling
 
-### 531. Использовать keyset pagination
+Limit load by latency, replication lag, and lock pressure.
 
-Не применять OFFSET для больших migration batches.
+### 530. Use SKIP LOCKED for backfill
 
-### 532. Реализовать idempotent migration
+Distribute batches among multiple workers.
 
-Позволить безопасный повтор operation.
+### 531. Use keyset pagination
 
-### 533. Исследовать table rewrite migration
+Do not use OFFSET for large migration batches.
 
-Измерить disk space, WAL и lock requirements.
+### 532. Implement an idempotent migration
 
-### 534. Изменить data type без rewrite
+Allow safe repetition of the operation.
 
-Проверить binary-compatible conversions.
+### 533. Research a table-rewrite migration
 
-### 535. Изменить data type с USING
+Measure disk space, WAL, and lock requirements.
 
-Контролировать conversion и invalid data.
+### 534. Change a data type without a rewrite
 
-### 536. Разделить constraint creation и validation
+Check binary-compatible conversions.
 
-Минимизировать длительность blocking lock.
+### 535. Change a data type with USING
 
-### 537. Перестроить large table
+Control conversion and invalid data.
 
-Сравнить shadow table, logical replication и maintenance window.
+### 536. Separate constraint creation and validation
 
-### 538. Исследовать view-based compatibility
+Minimize the duration of a blocking lock.
 
-Сохранить старый API schema через compatibility view.
+### 537. Rebuild a large table
 
-### 539. Исследовать trigger-based migration
+Compare a shadow table, logical replication, and a maintenance window.
 
-Синхронизировать old и new tables с учётом complexity.
+### 538. Research view-based compatibility
 
-### 540. Проверить rollback migration
+Preserve the old API schema through a compatibility view.
 
-Разделить reversible schema change и irreversible data transformation.
+### 539. Research trigger-based migration
 
-### 541. Создать preflight checks
+Synchronize old and new tables while accounting for complexity.
 
-Проверять disk space, locks, invalid data и replication lag.
+### 540. Check migration rollback
 
-### 542. Создать migration timeout policy
+Separate a reversible schema change and an irreversible data transformation.
 
-Использовать `lock_timeout` и `statement_timeout`.
+### 541. Create preflight checks
 
-### 543. Наблюдать migration progress
+Check disk space, locks, invalid data, and replication lag.
 
-Использовать progress views и custom backfill metrics.
+### 542. Create a migration timeout policy
 
-### 544. Создать migration dry run
+Use `lock_timeout` and `statement_timeout`.
 
-Запускать copy production-like schema и data distribution.
+### 543. Observe migration progress
 
-### 545. Тестировать mixed application versions
+Use progress views and custom backfill metrics.
 
-Проверить backward compatibility rolling deployment.
+### 544. Create a migration dry run
 
-### 546. Создать schema drift detection
+Run against a copy of production-like schema and data distribution.
 
-Сравнивать expected migrations и actual database schema.
+### 545. Test mixed application versions
 
-### 547. Создать migration audit
+Check backward compatibility during rolling deployment.
 
-Фиксировать version, operator, duration и result.
+### 546. Create schema-drift detection
 
-### 548. Создать failed migration recovery
+Compare expected migrations and the actual database schema.
 
-Документировать cleanup invalid indexes и partial backfills.
+### 547. Create a migration audit
 
-### 549. Создать production migration checklist
+Record version, operator, duration, and result.
 
-Проверять locks, WAL, storage, backups и rollback.
+### 548. Create failed-migration recovery
 
-### 550. Создать zero-downtime migration scenario
+Document cleanup of invalid indexes and partial backfills.
 
-Выполнить полную expand-backfill-switch-contract последовательность.
+### 549. Create a production migration checklist
+
+Check locks, WAL, storage, backups, and rollback.
+
+### 550. Create a zero-downtime migration scenario
+
+Execute the complete expand-backfill-switch-contract sequence.
 
 ## 20. Partitioning
 
-### 551. Исследовать declarative partitioning
+### 551. Research declarative partitioning
 
-Разобрать partitioned table и child partitions.
+Analyze a partitioned table and child partitions.
 
-### 552. Создать range partitioning
+### 552. Create range partitioning
 
-Разделить time-series table по месяцам.
+Partition a time-series table by month.
 
-### 553. Создать list partitioning
+### 553. Create list partitioning
 
-Разделить data по region или category.
+Partition data by region or category.
 
-### 554. Создать hash partitioning
+### 554. Create hash partitioning
 
-Распределить tenants между фиксированным числом partitions.
+Distribute tenants among a fixed number of partitions.
 
-### 555. Создать multilevel partitioning
+### 555. Create multilevel partitioning
 
-Комбинировать range и hash.
+Combine range and hash.
 
-### 556. Исследовать partition key design
+### 556. Research partition-key design
 
-Выбрать key по pruning, retention и write distribution.
+Choose a key based on pruning, retention, and write distribution.
 
-### 557. Исследовать partition constraints
+### 557. Research partition constraints
 
-Проверить автоматические bounds constraints.
+Check automatic bounds constraints.
 
-### 558. Исследовать partition pruning
+### 558. Research partition pruning
 
-Проверить plan при constant predicate.
+Check the plan with a constant predicate.
 
-### 559. Исследовать runtime pruning
+### 559. Research runtime pruning
 
-Проверить parameterized nested loop и prepared statement.
+Check a parameterized nested loop and prepared statement.
 
-### 560. Исследовать default partition
+### 560. Research the default partition
 
-Обработать rows вне существующих bounds.
+Handle rows outside existing bounds.
 
-### 561. Создать future partitions
+### 561. Create future partitions
 
-Автоматизировать создание partitions заранее.
+Automate partition creation in advance.
 
-### 562. Реализовать partition retention
+### 562. Implement partition retention
 
-Удалять historical data через `DROP` или `DETACH PARTITION`.
+Delete historical data through `DROP` or `DETACH PARTITION`.
 
-### 563. Сравнить DELETE и DROP PARTITION
+### 563. Compare DELETE and DROP PARTITION
 
-Измерить locks, WAL и duration.
+Measure locks, WAL, and duration.
 
-### 564. Исследовать ATTACH PARTITION
+### 564. Research ATTACH PARTITION
 
-Подключать preloaded table с validated constraint.
+Attach a preloaded table with a validated constraint.
 
-### 565. Исследовать DETACH PARTITION CONCURRENTLY
+### 565. Research DETACH PARTITION CONCURRENTLY
 
-Минимизировать blocking при архивировании.
+Minimize blocking during archiving.
 
-### 566. Исследовать indexes на partitioned tables
+### 566. Research indexes on partitioned tables
 
-Создавать corresponding indexes на partitions.
+Create corresponding indexes on partitions.
 
-### 567. Исследовать unique constraints partitioning
+### 567. Research unique constraints in partitioning
 
-Понять требование включения partition key.
+Understand the requirement to include the partition key.
 
-### 568. Исследовать foreign keys partitioning
+### 568. Research foreign keys in partitioning
 
-Проверить supported directions и operational cost.
+Check supported directions and operational cost.
 
-### 569. Исследовать partition-wise aggregate
+### 569. Research partition-wise aggregate
 
-Выполнять aggregation отдельно по partitions.
+Perform aggregation separately by partition.
 
-### 570. Исследовать partition-wise join
+### 570. Research partition-wise join
 
-Использовать aligned partitioning.
+Use aligned partitioning.
 
-### 571. Измерить planning overhead
+### 571. Measure planning overhead
 
-Проверить большое количество partitions.
+Check a large number of partitions.
 
-### 572. Исследовать partition metadata locks
+### 572. Research partition metadata locks
 
-Проверить DDL и concurrent queries.
+Check DDL and concurrent queries.
 
-### 573. Исследовать partitioned autovacuum
+### 573. Research partitioned autovacuum
 
-Настроить параметры для отдельных child tables.
+Configure parameters for individual child tables.
 
-### 574. Исследовать partitioned statistics
+### 574. Research partitioned statistics
 
-Проверить parent и child statistics.
+Check parent and child statistics.
 
-### 575. Исследовать global-index absence
+### 575. Research the absence of global indexes
 
-Разобрать ограничения uniqueness между partitions.
+Analyze uniqueness limitations across partitions.
 
-### 576. Реализовать tenant partitioning
+### 576. Implement tenant partitioning
 
-Сравнить hash partitioning и shared table с composite indexes.
+Compare hash partitioning and a shared table with composite indexes.
 
-### 577. Исследовать skewed partitions
+### 577. Research skewed partitions
 
-Проверить uneven data и hot partitions.
+Check uneven data and hot partitions.
 
-### 578. Реализовать partition rebalancing
+### 578. Implement partition rebalancing
 
-Перераспределить hash buckets или tenants.
+Redistribute hash buckets or tenants.
 
-### 579. Создать partition maintenance job
+### 579. Create a partition-maintenance job
 
-Автоматизировать create, detach, archive и drop.
+Automate create, detach, archive, and drop.
 
-### 580. Документировать partitioning decision
+### 580. Document the partitioning decision
 
-Зафиксировать случаи, когда partitioning приносит пользу или усложняет систему.
+Record cases where partitioning is beneficial or complicates the system.
 
-## 21. Replication и High Availability
 
-### 581. Исследовать physical replication
+## 21. Replication and High Availability
 
-Разобрать WAL streaming и byte-identical standby.
+### 581. Research physical replication
 
-### 582. Настроить primary и standby
+Analyze WAL streaming and a byte-identical standby.
 
-Создать streaming replication environment.
+### 582. Configure primary and standby
 
-### 583. Создать replication role
+Create a streaming-replication environment.
 
-Ограничить privileges и pg_hba rules.
+### 583. Create a replication role
 
-### 584. Исследовать replication slots
+Restrict privileges and pg_hba rules.
 
-Предотвратить удаление нужного standby WAL.
+### 584. Research replication slots
 
-### 585. Мониторить slot retention
+Prevent deletion of WAL required by a standby.
 
-Не допускать заполнения disk из-за inactive slot.
+### 585. Monitor slot retention
 
-### 586. Исследовать asynchronous replication
+Prevent disk exhaustion caused by an inactive slot.
 
-Измерить replication lag и возможную потерю committed transactions.
+### 586. Research asynchronous replication
 
-### 587. Исследовать synchronous replication
+Measure replication lag and possible loss of committed transactions.
 
-Настроить ожидание standby confirmation.
+### 587. Research synchronous replication
 
-### 588. Исследовать synchronous_standby_names
+Configure waiting for standby confirmation.
 
-Проверить priority и quorum modes.
+### 588. Research synchronous_standby_names
 
-### 589. Исследовать hot standby
+Check priority and quorum modes.
 
-Выполнять read-only queries на replica.
+### 589. Research hot standby
 
-### 590. Исследовать recovery conflicts
+Execute read-only queries on a replica.
 
-Проверить отмену standby queries из-за WAL replay.
+### 590. Research recovery conflicts
 
-### 591. Настроить hot_standby_feedback
+Check cancellation of standby queries because of WAL replay.
 
-Сравнить уменьшение conflicts и рост bloat primary.
+### 591. Configure hot_standby_feedback
 
-### 592. Настроить max_standby_streaming_delay
+Compare reduced conflicts and increased bloat on the primary.
 
-Управлять балансом query duration и replay lag.
+### 592. Configure max_standby_streaming_delay
 
-### 593. Исследовать replication lag metrics
+Manage the balance between query duration and replay lag.
 
-Сравнить write, flush, replay LSN и time lag.
+### 593. Research replication-lag metrics
 
-### 594. Выполнить planned switchover
+Compare write, flush, replay LSN, and time lag.
 
-Продвинуть standby и перенаправить clients.
+### 594. Perform a planned switchover
 
-### 595. Выполнить unplanned failover
+Promote the standby and redirect clients.
 
-Потерять primary и оценить data loss.
+### 595. Perform an unplanned failover
 
-### 596. Исследовать split-brain risk
+Lose the primary and evaluate data loss.
 
-Зафиксировать необходимость fencing и consensus.
+### 596. Research split-brain risk
 
-### 597. Исследовать timeline history
+Record the need for fencing and consensus.
 
-Понять новые timelines после promotion.
+### 597. Research timeline history
 
-### 598. Исследовать pg_rewind
+Understand new timelines after promotion.
 
-Вернуть старый primary в новый cluster.
+### 598. Research pg_rewind
 
-### 599. Исследовать cascading replication
+Return the old primary to the new cluster.
 
-Подключить standby к другому standby.
+### 599. Research cascading replication
 
-### 600. Исследовать logical replication
+Connect a standby to another standby.
 
-Разобрать publications, subscriptions и logical decoding.
+### 600. Research logical replication
 
-### 601. Создать publication
+Analyze publications, subscriptions, and logical decoding.
 
-Публиковать выбранные tables и operations.
+### 601. Create a publication
 
-### 602. Создать subscription
+Publish selected tables and operations.
 
-Синхронизировать initial data и changes.
+### 602. Create a subscription
 
-### 603. Исследовать replica identity
+Synchronize initial data and changes.
 
-Настроить UPDATE и DELETE при отсутствии suitable primary key.
+### 603. Research replica identity
 
-### 604. Исследовать logical replication conflicts
+Configure UPDATE and DELETE when a suitable primary key is absent.
 
-Обработать duplicate keys и schema mismatch.
+### 604. Research logical-replication conflicts
 
-### 605. Исследовать sequence replication gap
+Handle duplicate keys and schema mismatch.
 
-Зафиксировать, что sequence state не реплицируется как table data.
+### 605. Research the sequence-replication gap
 
-### 606. Исследовать logical replication DDL
+Record that sequence state is not replicated as table data.
 
-Документировать необходимость отдельной schema synchronization.
+### 606. Research logical-replication DDL
 
-### 607. Реализовать selective data replication
+Document the need for separate schema synchronization.
 
-Реплицировать subset tables или rows согласно возможностям выбранной версии.
+### 607. Implement selective data replication
 
-### 608. Исследовать major-version upgrade
+Replicate a subset of tables or rows according to the capabilities of the selected version.
 
-Сравнить `pg_upgrade` и logical replication.
+### 608. Research a major-version upgrade
 
-### 609. Создать HA failure scenarios
+Compare `pg_upgrade` and logical replication.
 
-Проверить primary crash, network partition, lagging standby и slot failure.
+### 609. Create HA failure scenarios
 
-### 610. Подготовить production readiness checklist
+Check primary crash, network partition, lagging standby, and slot failure.
 
-Зафиксировать schema, indexes, planner, transactions, vacuum, WAL, backups, replication, monitoring и recovery requirements.
+### 610. Prepare a production readiness checklist
+
+Record schema, indexes, planner, transactions, vacuum, WAL, backups, replication, monitoring, and recovery requirements.
